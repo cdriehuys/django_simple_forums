@@ -60,3 +60,11 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
+
+# Virtualenv
+bin/
+include/
+
+# Sublime Text Files
+*.sublime-project
+*.sublime-workspace
