@@ -15,3 +15,13 @@ class TestMessageModel(TestCase):
 		message = models.Message.objects.create(body=body)
 
 		self.assertEqual(body, message.body)
+
+	def test_string_conversion(self):
+		""" Test the conversion of a message instance to a string.
+
+		Converting a message instance to a string should return the message's
+		body text.
+		"""
+		message = models.Message(body="Test body text")
+
+		self.assertEqual(message.body, str(message))
