@@ -1,6 +1,3 @@
-import django
-
-
 SECRET_KEY = 'psst'
 SITE_ID = 1
 
