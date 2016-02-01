@@ -1,2 +1,6 @@
-bumpversion==0.5.3
-django==1.9.1
+# Unconstrained Packages
+bumpversion
+flake8
+
+# Version Constrained Packages
+django >=1.9,<1.10

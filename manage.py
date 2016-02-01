@@ -2,12 +2,11 @@
 
 import os
 
-
-# set up django settings before importing django
-os.environ['DJANGO_SETTINGS_MODULE'] = 'test_settings'
-
-
 from django.core import management
+
+
+# Point to the correct settings for testing
+os.environ['DJANGO_SETTINGS_MODULE'] = 'test_settings'
 
 
 if __name__ == "__main__":
