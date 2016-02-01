@@ -63,7 +63,8 @@ class TestThreadModel(TestCase):
 
         A thread instance should be able to be created with title text.
         """
-        thread = create_thread('test')
+        thread = models.Thread.objects.create(
+            title='test')
 
         self.assertEqual('test', thread.title)
 
