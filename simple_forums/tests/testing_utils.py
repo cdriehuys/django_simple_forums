@@ -11,6 +11,7 @@ def create_message(**kwargs):
     """
 
     user = kwargs.pop('user', None)
+    thread = kwargs.pop('thread', None)
     body = kwargs.pop('body', 'test')
     time_created = kwargs.pop('time_created', None)
 
@@ -23,11 +24,25 @@ def create_message(**kwargs):
             username='test',
             password='test')
 
+    if thread is None:
+        thread = create_thread()
+
     message_kwargs = dict(
         user=user,
+        thread=thread,
         body=body)
 
+    # Since this field has a default value defined in the model itself,
+    # don't pass it if its value is None
     if time_created is not None:
         message_kwargs['time_created'] = time_created
 
     return models.Message.objects.create(**message_kwargs)
+
+
+def create_thread(title='test'):
+    """ Create a thread instance for testing.
+
+    If a title is not given, the default title of 'test' is used.
+    """
+    return models.Thread.objects.create(title=title)
