@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
 
@@ -14,14 +15,20 @@ class TestMessageModel(TestCase):
         A message instance should be able to be created with a body
         attribute.
         """
+        user = get_user_model().objects.create_user(
+            username='test',
+            password='test')
         body = "Test body text"
         time = timezone.now()
 
         message = create_message(
+            user=user,
             body=body,
             time_created=time)
 
+        self.assertEqual(user, message.user)
         self.assertEqual(body, message.body)
+        self.assertEqual(time, message.time_created)
 
     def test_default_time_created(self):
         """ Test the default for the 'time_created' field.
