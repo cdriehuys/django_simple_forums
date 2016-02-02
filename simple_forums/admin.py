@@ -6,24 +6,21 @@ from simple_forums import models
 class MessageAdmin(admin.ModelAdmin):
     """ Admin for the Message model """
 
-    class Meta:
-        model = models.Message
-        fieldsets = (
-            (None, {
-                'fields': ('user', 'thread', 'body'),
-            }),
-            ('Date & Time Options', {
-                'fields': ('time_created',),
-            }),
-        )
+    fieldsets = (
+        (None, {
+            'fields': ('user', 'thread', 'body'),
+        }),
+        ('Date & Time Options', {
+            'classes': ('collapse',),
+            'fields': ('time_created',),
+        }),
+    )
 
 
 class ThreadAdmin(admin.ModelAdmin):
     """ Admin for the Thread model """
 
-    class Meta:
-        model = models.Thread
-        fields = ('title',)
+    fields = ('title',)
 
 
 admin.site.register(models.Message, MessageAdmin)
