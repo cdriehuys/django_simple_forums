@@ -22,4 +22,5 @@ script: coverage run --source='.' ./manage.py test
 
 # publish coverage reports
 after_success:
+  - coverage report
   - codecov
