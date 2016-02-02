@@ -1,0 +1,25 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block content %}
+
+	<h1>{{ thread.title }}</h1>
+
+	<hr />
+
+	{% with thread.message_set.all as messages %}
+		{% if messages %}
+			{% for message in messages %}
+
+				<div class="message">
+					{{ message.body }}
+				</div>
+
+			{% endfor %}
+		{% else %}
+
+			<p>There are no replies to this thread.</p>
+
+		{% endif %}
+	{% endwith %}
+
+{% endblock %}

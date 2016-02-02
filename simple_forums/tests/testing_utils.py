@@ -12,7 +12,7 @@ def create_message(**kwargs):
 
     user = kwargs.pop('user', None)
     thread = kwargs.pop('thread', None)
-    body = kwargs.pop('body', 'test')
+    body = kwargs.pop('body', 'test body')
     time_created = kwargs.pop('time_created', None)
 
     if len(kwargs) > 0:
@@ -40,7 +40,7 @@ def create_message(**kwargs):
     return models.Message.objects.create(**message_kwargs)
 
 
-def create_thread(title='test'):
+def create_thread(title='test thread'):
     """ Create a thread instance for testing.
 
     If a title is not given, the default title of 'test' is used.
