@@ -1,0 +1,33 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block content %}
+
+	{% if thread_list %}
+
+		<table>
+			<thead>
+				<tr>
+					<th>Title</th>
+				</tr>
+			</thead>
+
+			<tbody>
+
+				{% for thread in thread_list %}
+
+					<tr>
+						<td>{{ thread.title }}</td>
+					</tr>
+
+				{% endfor %}
+
+			</tbody>
+		</table>
+
+	{% else %}
+
+		<h1>No threads found</h1>
+
+	{% endif %}
+
+{% endblock %}
