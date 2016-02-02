@@ -7,7 +7,7 @@ Installation
 
 The easiest way to install simple forums is using pip::
 
-	$ pip install git+https://github.com/smalls12/django_simple_forums#egg=simple_forums
+	$ pip install django-simple-forums
 
 Usage
 =====
@@ -49,6 +49,6 @@ In order to use the views in the package, you must include the url patterns for 
 
 	url_patterns = [
 		...
-		url(r'^forums', include('simple_forums.urls')),
+		url(r'^forums/', include('simple_forums.urls')),
 		...
 	]
