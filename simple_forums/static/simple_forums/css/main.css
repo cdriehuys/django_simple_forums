@@ -1,11 +1,5 @@
-.post {
-    padding: 0;
-}
-
-.post > p, .post .post-content {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-bottom: .5em;
+.post-content {
+    padding: .5em 0;
 }
 
 .post-area {
@@ -24,7 +18,6 @@
 .post-heading {
     background: #eeeeee;
     border-radius: 4px;
-    color: #006096;
     padding: .25em .5em;
 }
 
@@ -32,14 +25,11 @@
     color: #555555;
 }
 
-.reply-form {
-    margin-bottom: 2em;
-}
-
 @media screen and (min-width: 768px) {
     
     .post-content {
         margin-top: 0;
+        padding: 0;
     }
 
     .post-heading {
