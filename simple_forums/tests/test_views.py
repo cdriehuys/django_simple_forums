@@ -94,8 +94,12 @@ class TestThreadListView(TestCase):
 
         response = self.client.get(self.URL)
 
+        thread_detail_url = reverse('thread-detail', kwargs={'pk': thread.pk})
+        href_text = 'href="%s"' % thread_detail_url
+
         self.assertEqual(200, response.status_code)
         self.assertQuerysetEqual(
             response.context['thread_list'],
             ['<Thread: %s>' % thread.title])
         self.assertContains(response, thread.title)
+        self.assertContains(response, href_text)

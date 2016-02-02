@@ -16,7 +16,7 @@
 				{% for thread in thread_list %}
 
 					<tr>
-						<td>{{ thread.title }}</td>
+						<td><a href="{% url 'thread-detail' thread.pk %}">{{ thread.title }}</a></td>
 					</tr>
 
 				{% endfor %}
