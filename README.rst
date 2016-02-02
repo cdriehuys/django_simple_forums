@@ -18,8 +18,8 @@ Add ``django.contrib.sites`` and ``simple_forums`` to your ``INSTALLED_APPS``::
 
 	INSTALLED_APPS = [
 		# default django apps
-		...
 		'django.contrib.sites',
+		...
 		'simple_forums',
 		...
 	]
