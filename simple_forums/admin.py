@@ -8,7 +8,14 @@ class MessageAdmin(admin.ModelAdmin):
 
     class Meta:
         model = models.Message
-        fields = ('user',)
+        fieldsets = (
+            (None, {
+                'fields': ('user', 'thread', 'body'),
+            }),
+            ('Date & Time Options', {
+                'fields': ('time_created',),
+            }),
+        )
 
 
 class ThreadAdmin(admin.ModelAdmin):
