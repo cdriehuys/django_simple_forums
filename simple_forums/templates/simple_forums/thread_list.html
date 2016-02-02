@@ -4,10 +4,11 @@
 
 	{% if thread_list %}
 
-		<table>
+		<table class="table table-hover thread-table">
+
 			<thead>
 				<tr>
-					<th>Title</th>
+					<th colspan="8">Title</th>
 				</tr>
 			</thead>
 
@@ -16,18 +17,18 @@
 				{% for thread in thread_list %}
 
 					<tr>
-						<td><a href="{% url 'thread-detail' thread.pk %}">{{ thread.title }}</a></td>
+						<td colspan="8">
+							<p><a href="{% url 'thread-detail' thread.pk %}">{{ thread.title }}</a></p>
+							<p class="text-muted">{{ thread.message_set.get.user }}, {{ thread.time_created }}</p>
+						</td>
 					</tr>
 
 				{% endfor %}
 
-			</tbody>
 		</table>
 
 	{% else %}
-
-		<h1>No threads found</h1>
-
+		<p>No threads found.</p>
 	{% endif %}
 
 {% endblock %}
