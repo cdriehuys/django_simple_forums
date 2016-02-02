@@ -1,0 +1,25 @@
+language: python
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+
+# upgrade pip first
+before_install:
+  - "pip install --upgrade pip"
+
+# install dependencies
+install:
+  - pip install -r dev-requirements.txt
+  - pip install codecov
+
+# lint before testing
+before_script:
+  - flake8 .
+
+# run tests
+script: coverage run --source='.' ./manage.py test
+
+# publish coverage reports
+after_success:
+  - codecov
