@@ -4,7 +4,7 @@
 
 	{% if thread_list %}
 
-		<table class="table table-hover thread-table">
+		<table>
 
 			<thead>
 				<tr>
@@ -19,7 +19,6 @@
 					<tr>
 						<td colspan="8">
 							<p><a href="{% url 'thread-detail' thread.pk %}">{{ thread.title }}</a></p>
-							<p class="text-muted">{{ thread.message_set.get.user }}, {{ thread.time_created }}</p>
 						</td>
 					</tr>
 
@@ -28,7 +27,9 @@
 		</table>
 
 	{% else %}
+
 		<p>No threads found.</p>
+		
 	{% endif %}
 
 {% endblock %}

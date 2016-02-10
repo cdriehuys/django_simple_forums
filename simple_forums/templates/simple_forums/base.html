@@ -5,14 +5,7 @@
 
 <head>
 
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-
     <title>{% block page_title %}Simple Forum{% endblock %}</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{% static 'simple_forums/css/main.css' %}" />
 
 </head>
 
@@ -20,52 +13,29 @@
 
     <header>
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="{% url 'thread-list' %}">{{ request.site.name }}</a>
-                </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'thread-list' %}">Home</a></li>
 
-                <div class="collapse navbar-collapse" id="navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="{% url 'thread-list' %}">Home</a></li>
-                        {% if request.user.is_authenticated %}
-                            <li><a href="#">New Thread</a></li>
-                        {% endif %}
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        {% if request.user.is_authenticated %}
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.user }}<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Log Out</a></li>
-                                </ul>
-                            </li>
-                        {% else %}
-                            <li><a href="#">Log In</a></li>
-                        {% endif %}
-                    </ul>
-                </div>
-            </div>
+                {% if request.user.is_authenticated %}
+
+                    <li><a href="#">New Thread</a></li>
+                    <li><a href="#">Log Out</a></li>
+
+                {% else %}
+
+                    <li><a href="#">Log In</a></li>
+
+                {% endif %}
+
+            </ul>
         </nav>
 
     </header>
 
     <main>
-        <div class="container-fluid">
-            {% block content %}{% endblock %}
-        </div>
+        {% block content %}{% endblock %}
     </main>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 
 </body>
 

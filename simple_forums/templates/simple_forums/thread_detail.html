@@ -2,46 +2,36 @@
 
 {% block content %}
 
-	<div class="row">
-		<div class="col-md-8 col-md-offset-2">
+	<h1>{{ thread.title }}</h1>
 
-			<h1>{{ thread.title }}</h1>
+	<hr />
 
-			<hr />
+	{% with thread.message_set.all as messages %}
+		{% if messages %}
+			{% for message in messages %}
 
-			{% with thread.message_set.all as messages %}
-				{% if messages %}
-					{% for message in messages %}
+				<div class="post-area">
 
-						<div class="row post-area">
+					<div class="post-heading">
+						<h4 class="text-primary">{{ message.user }}</h4>
+						<p>{{ message.time_created }}</p>
+						<span class="hidden-xs arrow"></span>
+					</div>
 
-							<div class="col-sm-3">
-								<div class="post-heading">
-									<h4 class="text-primary">{{ message.user }}</h4>
-									<p>{{ message.time_created }}</p>
-									<span class="hidden-xs arrow"></span>
-								</div>
-							</div>
+					<div class="post-content">
+						{{ message.body }}
+					</div>
 
-							<div class="col-sm-9">
-								<div class="post-content">
-									{{ message.body }}
-								</div>
-							</div>
+				</div>
 
-						</div>
+				<hr />
 
-						<hr />
+			{% endfor %}
+		{% else %}
 
-					{% endfor %}
-				{% else %}
+			<p>There are no replies to this thread.</p>
 
-					<p>There are no replies to this thread.</p>
-
-				{% endif %}
-			{% endwith %}
-
-		</div>
-	</div>
+		{% endif %}
+	{% endwith %}
 
 {% endblock %}
