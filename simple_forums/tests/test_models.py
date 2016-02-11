@@ -68,6 +68,26 @@ class TestThreadModel(TestCase):
 
         self.assertEqual('test', thread.title)
 
+    def test_slug_generation(self):
+    	""" Test the automatic generation of a url slug.
+
+    	When creating a thread instance, the instance should generate a
+    	url slug based on its title.
+    	"""
+    	thread = create_thread(title='test title')
+
+    	self.assertEqual('test-title', thread.slug)
+
+    def test_slug_generation_for_long_title(self):
+    	""" Test generating a slug when the title is really long.
+
+    	If the title is longer than 50 characters, the slug should be
+    	truncated to 50 chars.
+    	"""
+    	thread = create_thread(title='a' * 51)
+
+    	self.assertEqual('a' * 50, thread.slug)
+
     def test_string_conversion(self):
         """ Test converting a thread instance to a string.
 
