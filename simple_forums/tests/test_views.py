@@ -1,6 +1,8 @@
 from django.core.urlresolvers import reverse
+from django.shortcuts import get_object_or_404
 from django.test import TestCase
 
+from simple_forums import models
 from simple_forums.tests.testing_utils import create_message, create_thread
 
 
@@ -12,19 +14,16 @@ class TestThreadDetailView(TestCase):
         """ Get the url of the thread detail view for the given thread.
 
         Determines the url of the thread detail view using the thread's
-        pk.
+        pk and slug.
         """
-        return reverse('thread-detail', kwargs={'pk': pk})
+        thread = models.Thread.objects.get(pk=pk)
 
-    def test_invalid_pk(self):
-        """ Test the view when a non-existent pk is given.
+        kwargs = {
+            'pk': thread.pk,
+            'thread_slug': thread.slug,
+        }
 
-        If the pk given doesn't exist, the view should 404.
-        """
-        url = self.get_detail_url(1)
-        response = self.client.get(url)
-
-        self.assertEqual(404, response.status_code)
+        return reverse('thread-detail', kwargs=kwargs)
 
     def test_no_messages(self):
         """ Test the view when the given thread has no messages.
@@ -94,7 +93,10 @@ class TestThreadListView(TestCase):
 
         response = self.client.get(self.URL)
 
-        thread_detail_url = reverse('thread-detail', kwargs={'pk': thread.pk})
+        thread_detail_url = reverse('thread-detail', kwargs={
+            'pk': thread.pk,
+            'thread_slug': thread.slug
+            })
         href_text = 'href="%s"' % thread_detail_url
 
         self.assertEqual(200, response.status_code)
