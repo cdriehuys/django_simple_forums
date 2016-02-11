@@ -68,6 +68,27 @@ class TestThreadModel(TestCase):
 
         self.assertEqual('test', thread.title)
 
+    def test_num_replies_with_no_replies(self):
+    	""" Test retrieving the number of replies for a thread.
+
+    	If there are no messages associated with the thread, the number
+    	of replies should be 0.
+    	"""
+    	thread = create_thread()
+
+    	self.assertEqual(0, thread.num_replies)
+
+    def test_num_replies_with_reply(self):
+    	""" Test retrieving the number of replies for a thread.
+
+    	If there is a message associated with a thread, the number of
+    	replies should be 1.
+    	"""
+    	thread = create_thread()
+    	message = create_message(thread=thread)
+
+    	self.assertEqual(1, thread.num_replies)
+
     def test_slug_generation(self):
     	""" Test the automatic generation of a url slug.
 

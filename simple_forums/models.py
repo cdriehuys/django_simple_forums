@@ -27,6 +27,11 @@ class Thread(models.Model):
         """ Return the thread's title """
         return self.title
 
+    @property
+    def num_replies(self):
+        return self.message_set.count()
+    
+
     def save(self, *args, **kwargs):
     	""" Save the thread instance
 
