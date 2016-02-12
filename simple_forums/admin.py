@@ -2,6 +2,24 @@ from django.contrib import admin
 
 from simple_forums import models
 
+###########
+# Inlines #
+###########
+
+
+class MessageInline(admin.StackedInline):
+    """ Inline admin for Message model """
+
+    model = models.Message
+    fields = ('user', 'body',)
+    extra = 1
+    classes = ('collapse',)
+
+
+################
+# Model Admins #
+################
+
 
 class MessageAdmin(admin.ModelAdmin):
     """ Admin for the Message model """
@@ -29,6 +47,7 @@ class ThreadAdmin(admin.ModelAdmin):
             'fields': ('time_created',),
         }),
     )
+    inlines = (MessageInline,)
 
 
 class TopicAdmin(admin.ModelAdmin):
