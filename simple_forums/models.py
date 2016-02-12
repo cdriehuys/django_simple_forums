@@ -30,17 +30,16 @@ class Thread(models.Model):
     @property
     def num_replies(self):
         return self.message_set.count()
-    
 
     def save(self, *args, **kwargs):
-    	""" Save the thread instance
+        """ Save the thread instance
 
-    	Overriden to generate a url slug.
-    	"""
-    	# Only create the slug if this is a new object.
-    	# Changing existing slugs would create dead links.
-    	if not self.id:
-    		# Slugify and truncate to 50 characters
-    		self.slug = slugify(self.title)[:50]
+        Overriden to generate a url slug.
+        """
+        # Only create the slug if this is a new object.
+        # Changing existing slugs would create dead links.
+        if not self.id:
+            # Slugify and truncate to 50 characters
+            self.slug = slugify(self.title)[:50]
 
-    	return super(Thread, self).save(*args, **kwargs)
+        return super(Thread, self).save(*args, **kwargs)

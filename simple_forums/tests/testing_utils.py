@@ -43,6 +43,6 @@ def create_message(**kwargs):
 def create_thread(title='test thread'):
     """ Create a thread instance for testing.
 
-    If a title is not given, the default title of 'test' is used.
+    Fills in default values for testing purposes.
     """
     return models.Thread.objects.create(title=title)
