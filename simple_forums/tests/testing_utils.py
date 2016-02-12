@@ -16,8 +16,7 @@ def create_message(**kwargs):
     time_created = kwargs.pop('time_created', None)
 
     if len(kwargs) > 0:
-        raise ValueError(
-            "Received unexpected kwargs: %s" % kwargs)
+        raise ValueError("Received unexpected kwargs: %s" % kwargs)
 
     if user is None:
         user = get_user_model().objects.create_user(
@@ -40,9 +39,24 @@ def create_message(**kwargs):
     return models.Message.objects.create(**message_kwargs)
 
 
-def create_thread(title='test thread'):
+def create_thread(**kwargs):
     """ Create a thread instance for testing.
 
-    If a title is not given, the default title of 'test' is used.
+    Fills in default values for testing purposes.
     """
-    return models.Thread.objects.create(title=title)
+
+    title = kwargs.pop('title', 'test thread')
+    time_created = kwargs.pop('time_created', None)
+
+    if len(kwargs) > 0:
+        raise ValueError("Received unexpected kwargs: %s" % kwargs)
+
+    thread_kwargs = dict(
+        title=title)
+
+    # Since this field has a default value defined in the model itself,
+    # don't pass it if its value is None
+    if time_created is not None:
+        thread_kwargs['time_created'] = time_created
+
+    return models.Thread.objects.create(**thread_kwargs)

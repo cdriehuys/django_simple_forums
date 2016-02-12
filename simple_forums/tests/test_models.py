@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.utils import timezone
@@ -63,30 +65,66 @@ class TestThreadModel(TestCase):
 
         A thread instance should be able to be created with title text.
         """
+        time = timezone.now() - timedelta(days=1)
+
         thread = models.Thread.objects.create(
-            title='test')
+            title='test',
+            time_created=time)
 
         self.assertEqual('test', thread.title)
 
+    def test_default_time_created(self):
+        """ Test the default for the 'time_created' field.
+
+        If no parameter is passed to 'time_created', it should default
+        to the current time.
+        """
+        start_time = timezone.now()
+        thread = create_thread()
+        end_time = timezone.now()
+
+        self.assertTrue(start_time <= thread.time_created <= end_time)
+
+    def test_num_replies_with_no_replies(self):
+        """ Test retrieving the number of replies for a thread.
+
+        If there are no messages associated with the thread, the number
+        of replies should be 0.
+        """
+        thread = create_thread()
+
+        self.assertEqual(0, thread.num_replies)
+
+    def test_num_replies_with_reply(self):
+        """ Test retrieving the number of replies for a thread.
+
+        If there is a message associated with a thread, the number of
+        replies should be 1.
+        """
+        thread = create_thread()
+        create_message(thread=thread)
+
+        self.assertEqual(1, thread.num_replies)
+
     def test_slug_generation(self):
-    	""" Test the automatic generation of a url slug.
+        """ Test the automatic generation of a url slug.
 
-    	When creating a thread instance, the instance should generate a
-    	url slug based on its title.
-    	"""
-    	thread = create_thread(title='test title')
+        When creating a thread instance, the instance should generate a
+        url slug based on its title.
+        """
+        thread = create_thread(title='test title')
 
-    	self.assertEqual('test-title', thread.slug)
+        self.assertEqual('test-title', thread.slug)
 
     def test_slug_generation_for_long_title(self):
-    	""" Test generating a slug when the title is really long.
+        """ Test generating a slug when the title is really long.
 
-    	If the title is longer than 50 characters, the slug should be
-    	truncated to 50 chars.
-    	"""
-    	thread = create_thread(title='a' * 51)
+        If the title is longer than 50 characters, the slug should be
+        truncated to 50 chars.
+        """
+        thread = create_thread(title='a' * 51)
 
-    	self.assertEqual('a' * 50, thread.slug)
+        self.assertEqual('a' * 50, thread.slug)
 
     def test_string_conversion(self):
         """ Test converting a thread instance to a string.
@@ -97,3 +135,25 @@ class TestThreadModel(TestCase):
         thread = models.Thread(title='test')
 
         self.assertEqual(thread.title, str(thread))
+
+    def test_time_last_activity_no_replies(self):
+        """ Test the 'time_last_activity' property with no replies.
+
+        If there are no replies, this property should return the time
+        that the thread was created.
+        """
+        thread = create_thread()
+
+        self.assertEqual(thread.time_created, thread.time_last_activity)
+
+    def test_time_last_activity_with_reply(self):
+        """ Test the 'time_last_activity' property with a reply.
+
+        If there is a reply, this property should return the time that
+        the most recent reply was posted.
+        """
+        past = timezone.now() - timedelta(days=1)
+        thread = create_thread(time_created=past)
+        message = create_message(thread=thread)
+
+        self.assertEqual(message.time_created, thread.time_last_activity)
