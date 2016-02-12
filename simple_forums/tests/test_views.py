@@ -18,7 +18,7 @@ class TestThreadDetailView(TestCase):
         thread = models.Thread.objects.get(pk=pk)
 
         kwargs = {
-            'pk': thread.pk,
+            'thread_pk': thread.pk,
             'thread_slug': thread.slug,
         }
 
@@ -93,7 +93,7 @@ class TestThreadListView(TestCase):
         response = self.client.get(self.URL)
 
         thread_detail_url = reverse('thread-detail', kwargs={
-            'pk': thread.pk,
+            'thread_pk': thread.pk,
             'thread_slug': thread.slug
             })
         href_text = 'href="%s"' % thread_detail_url
