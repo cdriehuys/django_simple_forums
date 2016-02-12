@@ -2,6 +2,11 @@
 Simple Forums
 =============
 
+Important Note
+==============
+
+This package is currently in early alpha. This means that backwards incompatible changes can be introduced at any time as described `here <http://semver.org/#spec-item-4>`_.
+
 Installation
 ============
 
