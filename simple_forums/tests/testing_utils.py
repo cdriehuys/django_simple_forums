@@ -60,3 +60,22 @@ def create_thread(**kwargs):
         thread_kwargs['time_created'] = time_created
 
     return models.Thread.objects.create(**thread_kwargs)
+
+
+def create_topic(**kwargs):
+    """ Create topic instance for testing.
+
+    Fills in default values for testing purposes.
+    """
+
+    title = kwargs.pop('title', 'test topic')
+    description = kwargs.pop('description', 'test description')
+
+    if len(kwargs) > 0:
+        raise ValueError("Received unexpected kwargs: %s" % kwargs)
+
+    topic_kwargs = dict(
+        title=title,
+        description=description)
+
+    return models.Topic.objects.create(**topic_kwargs)

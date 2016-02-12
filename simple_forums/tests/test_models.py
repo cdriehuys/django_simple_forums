@@ -157,3 +157,29 @@ class TestThreadModel(TestCase):
         message = create_message(thread=thread)
 
         self.assertEqual(message.time_created, thread.time_last_activity)
+
+
+class TestTopicModel(TestCase):
+    """ Tests for the topic model """
+
+    def test_create_with_all_fields(self):
+        """ Test creating a topic with all of its fields specified. """
+        title = 'thread title'
+        description = 'thread description'
+
+        topic = models.Topic.objects.create(
+            title=title,
+            description=description)
+
+        self.assertEqual(title, topic.title)
+        self.assertEqual(description, topic.description)
+
+    def test_string_conversion(self):
+        """ Test converting a topic instance to a string.
+
+        Converting a topic instance to a string should return the
+        topic's title.
+        """
+        topic = models.Topic(title='test')
+
+        self.assertEqual(topic.title, str(topic.title))

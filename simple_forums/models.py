@@ -58,3 +58,14 @@ class Thread(models.Model):
             return messages.first().time_created
 
         return self.time_created
+
+
+class Topic(models.Model):
+    """ A topic model to hold threads """
+
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+
+    def __str__(self):
+        """ Return the topic's title """
+        return self.title
