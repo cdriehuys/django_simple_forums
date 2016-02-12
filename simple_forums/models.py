@@ -44,3 +44,17 @@ class Thread(models.Model):
             self.slug = slugify(self.title)[:50]
 
         return super(Thread, self).save(*args, **kwargs)
+
+    @property
+    def time_last_activity(self):
+        """ Return the time of the last activity on the thread.
+
+        If the thread has no replies, this method returns the time of
+        this thread's creation. If there are replies, it returns the
+        time of the most recent message.
+        """
+        if self.num_replies:
+            messages = self.message_set.order_by('-time_created')
+            return messages.first().time_created
+
+        return self.time_created

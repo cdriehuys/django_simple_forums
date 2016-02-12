@@ -57,6 +57,6 @@ def create_thread(**kwargs):
     # Since this field has a default value defined in the model itself,
     # don't pass it if its value is None
     if time_created is not None:
-        message_kwargs['time_created'] = time_created
+        thread_kwargs['time_created'] = time_created
 
     return models.Thread.objects.create(**thread_kwargs)

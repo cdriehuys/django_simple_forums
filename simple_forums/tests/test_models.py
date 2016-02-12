@@ -135,3 +135,25 @@ class TestThreadModel(TestCase):
         thread = models.Thread(title='test')
 
         self.assertEqual(thread.title, str(thread))
+
+    def test_time_last_activity_no_replies(self):
+        """ Test the 'time_last_activity' property with no replies.
+
+        If there are no replies, this property should return the time
+        that the thread was created.
+        """
+        thread = create_thread()
+
+        self.assertEqual(thread.time_created, thread.time_last_activity)
+
+    def test_time_last_activity_with_reply(self):
+        """ Test the 'time_last_activity' property with a reply.
+
+        If there is a reply, this property should return the time that
+        the most recent reply was posted.
+        """
+        past = timezone.now() - timedelta(days=1)
+        thread = create_thread(time_created=past)
+        message = create_message(thread=thread)
+
+        self.assertEqual(message.time_created, thread.time_last_activity)
