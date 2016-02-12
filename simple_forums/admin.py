@@ -20,8 +20,23 @@ class MessageAdmin(admin.ModelAdmin):
 class ThreadAdmin(admin.ModelAdmin):
     """ Admin for the Thread model """
 
-    fields = ('title',)
+    fieldsets = (
+        (None, {
+            'fields': ('topic', 'title'),
+        }),
+        ('Date & Time Options', {
+            'classes': ('collapse',),
+            'fields': ('time_created',),
+        }),
+    )
+
+
+class TopicAdmin(admin.ModelAdmin):
+    """ Admin for the topic model """
+
+    fields = ('title', 'description',)
 
 
 admin.site.register(models.Message, MessageAdmin)
 admin.site.register(models.Thread, ThreadAdmin)
+admin.site.register(models.Topic, TopicAdmin)
