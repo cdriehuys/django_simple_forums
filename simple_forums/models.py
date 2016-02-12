@@ -66,7 +66,21 @@ class Topic(models.Model):
 
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
+    slug = models.SlugField()
 
     def __str__(self):
         """ Return the topic's title """
         return self.title
+
+    def save(self, *args, **kwargs):
+        """ Save the topic instance
+
+        Overriden to generate a url slug.
+        """
+        # Only create the slug if this is a new object.
+        # Changing existing slugs would create dead links.
+        if not self.id:
+            # Slugify and truncate to 50 characters
+            self.slug = slugify(self.title)[:50]
+
+        return super(Topic, self).save(*args, **kwargs)

@@ -181,6 +181,26 @@ class TestTopicModel(TestCase):
         self.assertEqual(title, topic.title)
         self.assertEqual(description, topic.description)
 
+    def test_slug_generation(self):
+        """ Test the automatic generation of a url slug.
+
+        When creating a topic instance, the instance should generate a
+        url slug based on its title.
+        """
+        topic = create_topic(title='test title')
+
+        self.assertEqual('test-title', topic.slug)
+
+    def test_slug_generation_for_long_title(self):
+        """ Test generating a slug when the title is really long.
+
+        If the title is longer than 50 characters, the slug should be
+        truncated to 50 chars.
+        """
+        topic = create_topic(title='a' * 51)
+
+        self.assertEqual('a' * 50, topic.slug)
+
     def test_string_conversion(self):
         """ Test converting a topic instance to a string.
 
