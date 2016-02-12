@@ -22,6 +22,7 @@ class Thread(models.Model):
 
     title = models.CharField(max_length=200)
     slug = models.SlugField()
+    time_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         """ Return the thread's title """

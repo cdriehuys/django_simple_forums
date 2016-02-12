@@ -73,6 +73,18 @@ class TestThreadModel(TestCase):
 
         self.assertEqual('test', thread.title)
 
+    def test_default_time_created(self):
+        """ Test the default for the 'time_created' field.
+
+        If no parameter is passed to 'time_created', it should default
+        to the current time.
+        """
+        start_time = timezone.now()
+        thread = create_thread()
+        end_time = timezone.now()
+
+        self.assertTrue(start_time <= thread.time_created <= end_time)
+
     def test_num_replies_with_no_replies(self):
         """ Test retrieving the number of replies for a thread.
 
