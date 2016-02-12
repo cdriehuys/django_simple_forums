@@ -5,7 +5,10 @@ from django.test import TestCase
 from django.utils import timezone
 
 from simple_forums import models
-from simple_forums.tests.testing_utils import create_message, create_thread
+from simple_forums.tests.testing_utils import (
+    create_message,
+    create_thread,
+    create_topic)
 
 
 class TestMessageModel(TestCase):
@@ -65,13 +68,17 @@ class TestThreadModel(TestCase):
 
         A thread instance should be able to be created with title text.
         """
+        topic = create_topic()
         time = timezone.now() - timedelta(days=1)
 
         thread = models.Thread.objects.create(
+            topic=topic,
             title='test',
             time_created=time)
 
+        self.assertEqual(topic, thread.topic)
         self.assertEqual('test', thread.title)
+        self.assertEqual(time, thread.time_created)
 
     def test_default_time_created(self):
         """ Test the default for the 'time_created' field.

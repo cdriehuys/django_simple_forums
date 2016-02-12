@@ -45,13 +45,18 @@ def create_thread(**kwargs):
     Fills in default values for testing purposes.
     """
 
+    topic = kwargs.pop('topic', None)
     title = kwargs.pop('title', 'test thread')
     time_created = kwargs.pop('time_created', None)
 
     if len(kwargs) > 0:
         raise ValueError("Received unexpected kwargs: %s" % kwargs)
 
+    if topic is None:
+        topic = create_topic()
+
     thread_kwargs = dict(
+        topic=topic,
         title=title)
 
     # Since this field has a default value defined in the model itself,

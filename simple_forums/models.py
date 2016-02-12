@@ -20,6 +20,7 @@ class Message(models.Model):
 class Thread(models.Model):
     """ A thread with a title """
 
+    topic = models.ForeignKey('Topic')
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     time_created = models.DateTimeField(default=timezone.now)
