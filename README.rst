@@ -5,7 +5,7 @@ Simple Forums
 Important Note
 ==============
 
-This package is currently in early alpha. This means that backwards incompatible changes can be introduced at any time as described `here <http://semver.org/#spec-item-4>`_.
+This package is currently in early alpha (version < 1.0.0). This means that backwards incompatible changes can be introduced at any time as described `here <http://semver.org/#spec-item-4>`_.
 
 Installation
 ============
@@ -17,9 +17,7 @@ The easiest way to install simple forums is using pip::
 Usage
 =====
 
-The following settings must be modified in ``settings.py``.
-
-Add ``simple_forums`` to your ``INSTALLED_APPS``::
+Add ``simple_forums`` to your ``INSTALLED_APPS`` in ``settings.py``::
 
 	INSTALLED_APPS = [
 		# default django apps
@@ -36,3 +34,7 @@ In order to use the views included in simple forums, you must include the url pa
 		url(r'^forums/', include('simple_forums.urls')),
 		...
 	]
+
+Finally, apply the migrations from simple forums::
+
+	$ ./manage.py migrate
