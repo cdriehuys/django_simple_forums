@@ -1,0 +1,20 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block content %}
+
+    <h1>Topics</h1>
+
+    {% for topic in topic_list %}
+
+        <div class="topic">
+            <h3><a href="{% url 'thread-list' topic.pk topic.slug %}">{{ topic.title }}</a></h3>
+            <p>{{ topic.description }}</p>
+        </div>
+
+    {% empty %}
+
+        <p>No topics found.</p>
+
+    {% endfor %}
+
+{% endblock %}

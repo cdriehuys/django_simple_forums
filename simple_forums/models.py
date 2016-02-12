@@ -20,6 +20,7 @@ class Message(models.Model):
 class Thread(models.Model):
     """ A thread with a title """
 
+    topic = models.ForeignKey('Topic')
     title = models.CharField(max_length=200)
     slug = models.SlugField()
     time_created = models.DateTimeField(default=timezone.now)
@@ -58,3 +59,28 @@ class Thread(models.Model):
             return messages.first().time_created
 
         return self.time_created
+
+
+class Topic(models.Model):
+    """ A topic model to hold threads """
+
+    title = models.CharField(max_length=50)
+    description = models.CharField(max_length=200)
+    slug = models.SlugField()
+
+    def __str__(self):
+        """ Return the topic's title """
+        return self.title
+
+    def save(self, *args, **kwargs):
+        """ Save the topic instance
+
+        Overriden to generate a url slug.
+        """
+        # Only create the slug if this is a new object.
+        # Changing existing slugs would create dead links.
+        if not self.id:
+            # Slugify and truncate to 50 characters
+            self.slug = slugify(self.title)[:50]
+
+        return super(Topic, self).save(*args, **kwargs)

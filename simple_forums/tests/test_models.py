@@ -5,7 +5,10 @@ from django.test import TestCase
 from django.utils import timezone
 
 from simple_forums import models
-from simple_forums.tests.testing_utils import create_message, create_thread
+from simple_forums.tests.testing_utils import (
+    create_message,
+    create_thread,
+    create_topic)
 
 
 class TestMessageModel(TestCase):
@@ -65,13 +68,17 @@ class TestThreadModel(TestCase):
 
         A thread instance should be able to be created with title text.
         """
+        topic = create_topic()
         time = timezone.now() - timedelta(days=1)
 
         thread = models.Thread.objects.create(
+            topic=topic,
             title='test',
             time_created=time)
 
+        self.assertEqual(topic, thread.topic)
         self.assertEqual('test', thread.title)
+        self.assertEqual(time, thread.time_created)
 
     def test_default_time_created(self):
         """ Test the default for the 'time_created' field.
@@ -157,3 +164,49 @@ class TestThreadModel(TestCase):
         message = create_message(thread=thread)
 
         self.assertEqual(message.time_created, thread.time_last_activity)
+
+
+class TestTopicModel(TestCase):
+    """ Tests for the topic model """
+
+    def test_create_with_all_fields(self):
+        """ Test creating a topic with all of its fields specified. """
+        title = 'thread title'
+        description = 'thread description'
+
+        topic = models.Topic.objects.create(
+            title=title,
+            description=description)
+
+        self.assertEqual(title, topic.title)
+        self.assertEqual(description, topic.description)
+
+    def test_slug_generation(self):
+        """ Test the automatic generation of a url slug.
+
+        When creating a topic instance, the instance should generate a
+        url slug based on its title.
+        """
+        topic = create_topic(title='test title')
+
+        self.assertEqual('test-title', topic.slug)
+
+    def test_slug_generation_for_long_title(self):
+        """ Test generating a slug when the title is really long.
+
+        If the title is longer than 50 characters, the slug should be
+        truncated to 50 chars.
+        """
+        topic = create_topic(title='a' * 51)
+
+        self.assertEqual('a' * 50, topic.slug)
+
+    def test_string_conversion(self):
+        """ Test converting a topic instance to a string.
+
+        Converting a topic instance to a string should return the
+        topic's title.
+        """
+        topic = models.Topic(title='test')
+
+        self.assertEqual(topic.title, str(topic.title))
