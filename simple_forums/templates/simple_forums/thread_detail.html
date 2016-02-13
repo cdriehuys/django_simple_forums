@@ -35,4 +35,24 @@
 		{% endif %}
 	{% endwith %}
 
+	{% if reply_form %}
+
+		<h3>Reply</h3>
+
+		<form action="" method="post">
+
+			{% csrf_token %}
+
+			{{ reply_form.as_p }}
+
+			<button type="submit">Post Reply</button>
+
+		</form>
+
+	{% else %}
+
+		<p>You must be <a href="{% url 'login' %}">logged in</a> to reply.</p>
+
+	{% endif %}
+
 {% endblock %}

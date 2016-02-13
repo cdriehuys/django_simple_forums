@@ -117,7 +117,7 @@ class TestThreadCreateView(AuthenticationTestCase):
         self.assertEqual(data['body'], message.body)
 
 
-class TestThreadDetailView(TestCase):
+class TestThreadDetailView(AuthenticationTestCase):
     """ Tests for ThreadDetailView """
 
     def test_no_messages(self):
@@ -141,6 +141,97 @@ class TestThreadDetailView(TestCase):
         self.assertEqual(thread, response.context['thread'])
         self.assertContains(response, no_replies_message)
 
+    def test_reply(self):
+        """ Test submitting a valid reply.
+
+        If a valid form is submitted, a new message should be created
+        on the current thread.
+        """
+        self.login()
+
+        thread = create_thread()
+        data = {
+            'body': 'Test body text.',
+        }
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.post(url, data)
+
+        message = thread.message_set.get()
+
+        self.assertRedirects(response, url)
+        self.assertEqual(1, models.Message.objects.count())
+        self.assertEqual(self.user, message.user)
+        self.assertEqual(data['body'], message.body)
+
+    def test_reply_unauthenticated(self):
+        """ Test replying while unauthenticated.
+
+        If an unauthenticated user tries to reply to a thread, an error
+        should be shown.
+        """
+        thread = create_thread()
+        data = {
+            'body': 'Test body text.',
+        }
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.post(url, data)
+
+        self.assertEqual(403, response.status_code)
+        self.assertEqual(0, models.Message.objects.count())
+
+    def test_reply_errors(self):
+        """ Test submitting an invalid reply form.
+
+        If an invalid reply is submitted, the reply form should be
+        displayed with errors.
+        """
+        self.login()
+
+        thread = create_thread()
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.post(url, {})
+
+        expected_errors = {
+            'body': ['This field is required.'],
+        }
+
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(response.context['reply_form'].is_bound)
+        self.assertEqual(
+            expected_errors,
+            response.context['reply_form'].errors)
+
+    def test_reply_form(self):
+        """ Test presence of a reply form.
+
+        If a user is logged in, there should be a reply form.
+        """
+        self.login()
+
+        thread = create_thread()
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertFalse(response.context['reply_form'].is_bound)
+
+    def test_reply_form_unauthenticated(self):
+        """ Test presence of reply form for unauthenticated users.
+
+        If a user isn't logged in, there should be no reply form.
+        """
+        thread = create_thread()
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertTrue('reply_form' not in response.context)
+
     def test_with_message(self):
         """ Test the view when the given thread has a message.
 
@@ -148,7 +239,7 @@ class TestThreadDetailView(TestCase):
         the thread's title.
         """
         thread = create_thread()
-        message = create_message(thread=thread)
+        message = create_message(user=self.user, thread=thread)
 
         url = thread_detail_url(thread=thread)
         response = self.client.get(url)
