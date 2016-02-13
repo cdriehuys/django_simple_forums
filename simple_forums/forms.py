@@ -30,3 +30,19 @@ class ThreadCreationForm(forms.Form):
                 body=self.cleaned_data['body'])
 
             return thread
+
+
+class ThreadReplyForm(forms.Form):
+    """ Form for replying to threads """
+    body = forms.CharField(label='Reply', widget=forms.Textarea)
+
+    def save(self, user, thread):
+        """ Save the contents of the form.
+
+        Creates a new reply on the given thread by the given user.
+        """
+        if self.is_valid():
+            return models.Message.objects.create(
+                user=user,
+                thread=thread,
+                body=self.cleaned_data['body'])

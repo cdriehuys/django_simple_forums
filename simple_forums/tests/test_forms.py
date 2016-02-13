@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from simple_forums import forms, models
-from simple_forums.tests.testing_utils import create_topic
+from simple_forums.tests.testing_utils import create_thread, create_topic
 
 
 class TestThreadCreationForm(TestCase):
@@ -75,4 +75,61 @@ class TestThreadCreationForm(TestCase):
         form.save(user)
 
         self.assertEqual(0, models.Thread.objects.count())
+        self.assertEqual(0, models.Message.objects.count())
+
+
+class TestThreadReplyForm(TestCase):
+    """ Tests for form used to reply to threads """
+
+    def test_empty(self):
+        """ Test validating an empty form.
+
+        If the form is empty, errors should be raised for each required
+        field.
+        """
+        form = forms.ThreadReplyForm({})
+
+        expected_errors = {
+            'body': ['This field is required.'],
+        }
+
+        self.assertTrue(form.is_bound)
+        self.assertFalse(form.is_valid())
+        self.assertEqual(expected_errors, form.errors)
+
+    def test_save(self):
+        """ Test saving a valid form.
+
+        Saving a valid form should create a new reply on the given
+        thread.
+        """
+        user = get_user_model().objects.create_user(
+            username='test',
+            password='test')
+        thread = create_thread()
+
+        data = {
+            'body': 'Test body text.',
+        }
+
+        form = forms.ThreadReplyForm(data)
+        message = form.save(user, thread)
+
+        self.assertEqual(1, thread.message_set.count())
+        self.assertEqual(data['body'], message.body)
+
+    def test_save_invalid_data(self):
+        """ Test trying to save invalid data.
+
+        Trying to save a form with invalid data should not create a new
+        message.
+        """
+        user = get_user_model().objects.create_user(
+            username='test',
+            password='test')
+        thread = create_thread()
+
+        form = forms.ThreadReplyForm({})
+        form.save(user, thread)
+
         self.assertEqual(0, models.Message.objects.count())
