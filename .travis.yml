@@ -24,3 +24,9 @@ script: coverage run --source='.' ./manage.py test
 after_success:
   - coverage report
   - codecov
+
+# Only send emails about failures
+notifications:
+  email:
+    on_success: never
+    on_failure: always
