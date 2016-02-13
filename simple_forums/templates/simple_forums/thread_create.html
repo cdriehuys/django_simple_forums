@@ -1,0 +1,17 @@
+{% extends 'simple_forums/base.html' %}
+
+{% block content %}
+
+    <h1>New Thread</h1>
+
+    <form action="" method="post">
+
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Submit</button>
+
+    </form>
+
+{% endblock %}
