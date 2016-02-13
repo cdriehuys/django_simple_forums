@@ -1,6 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
 from simple_forums import forms, models
@@ -25,6 +26,30 @@ class ThreadDetailView(generic.DetailView):
 
     model = models.Thread
     pk_url_kwarg = 'thread_pk'
+
+    def get_context_data(self, **kwargs):
+        context = super(ThreadDetailView, self).get_context_data(**kwargs)
+
+        if self.request.user.is_authenticated():
+            context['reply_form'] = forms.ThreadReplyForm()
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        """ Create a new reply to the current thread """
+        if not request.user.is_authenticated():
+            raise PermissionDenied()
+
+        self.object = self.get_object()
+
+        form = forms.ThreadReplyForm(request.POST)
+
+        if form.is_valid():
+            form.save(request.user, self.object)
+
+            return HttpResponseRedirect(thread_detail_url(thread=self.object))
+
+        return render(request, self.get_template_names(), {'reply_form': form})
 
 
 class ThreadListView(generic.ListView):
