@@ -19,9 +19,12 @@ def create_message(**kwargs):
         raise ValueError("Received unexpected kwargs: %s" % kwargs)
 
     if user is None:
-        user = get_user_model().objects.create_user(
-            username='test',
-            password='test')
+        if get_user_model().objects.filter(username='test').exists():
+            user = get_user_model().objects.get(username='test')
+        else:
+            user = get_user_model().objects.create_user(
+                username='test',
+                password='test')
 
     if thread is None:
         thread = create_thread()

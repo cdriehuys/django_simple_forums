@@ -31,7 +31,13 @@ class Thread(models.Model):
 
     @property
     def num_replies(self):
-        return self.message_set.count()
+        """ Get the number of replies to the thread """
+        count = self.message_set.count()
+
+        if not count:
+            return count
+
+        return count - 1
 
     def save(self, *args, **kwargs):
         """ Save the thread instance
@@ -54,7 +60,7 @@ class Thread(models.Model):
         this thread's creation. If there are replies, it returns the
         time of the most recent message.
         """
-        if self.num_replies:
+        if self.message_set.count():
             messages = self.message_set.order_by('-time_created')
             return messages.first().time_created
 
