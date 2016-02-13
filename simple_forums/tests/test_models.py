@@ -102,13 +102,29 @@ class TestThreadModel(TestCase):
 
         self.assertEqual(0, thread.num_replies)
 
-    def test_num_replies_with_reply(self):
+    def test_num_replies_with_initial_reply(self):
         """ Test retrieving the number of replies for a thread.
 
-        If there is a message associated with a thread, the number of
-        replies should be 1.
+        If the only message associated with a thread is the initial
+        message, then the property should return 0 replies.
         """
         thread = create_thread()
+        create_message(thread=thread)
+
+        self.assertEqual(0, thread.num_replies)
+
+    def test_num_replies_with_more_replies(self):
+        """ Test retrieving the number of replies for a thread.
+
+        If the thread has a message that is not the initial message,
+        then the property should return the number of additional
+        messages.
+        """
+        thread = create_thread()
+        # simulate inital message
+        create_message(thread=thread)
+
+        # create additional message
         create_message(thread=thread)
 
         self.assertEqual(1, thread.num_replies)
