@@ -28,3 +28,5 @@ class ThreadCreationForm(forms.Form):
                 user=user,
                 thread=thread,
                 body=self.cleaned_data['body'])
+
+            return thread
