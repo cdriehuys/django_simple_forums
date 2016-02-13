@@ -55,3 +55,24 @@ class TestThreadCreationForm(TestCase):
         self.assertEqual(user, message.user)
         self.assertEqual(thread, message.thread)
         self.assertEqual(data['body'], message.body)
+
+    def test_save_invalid_data(self):
+        """ Test attempting to save an invalid form.
+
+        Trying to save a form with invalid data should not create a new
+        thread.
+        """
+        data = {
+            'foo': 'bar',
+            'bar': 'foo',
+        }
+        form = forms.ThreadCreationForm(data)
+
+        user = get_user_model().objects.create_user(
+            username='test',
+            password='test')
+
+        form.save(user)
+
+        self.assertEqual(0, models.Thread.objects.count())
+        self.assertEqual(0, models.Message.objects.count())
