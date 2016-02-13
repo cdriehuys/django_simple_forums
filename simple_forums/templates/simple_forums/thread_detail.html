@@ -1,5 +1,7 @@
 {% extends 'simple_forums/base.html' %}
 
+{% load simple_forums %}
+
 {% block content %}
 
 	<h1>{{ thread.title }}</h1>
@@ -51,7 +53,7 @@
 
 	{% else %}
 
-		<p>You must be <a href="{% url 'login' %}">logged in</a> to reply.</p>
+		<p>You must be <a href="{% login_url %}">logged in</a> to reply.</p>
 
 	{% endif %}
 

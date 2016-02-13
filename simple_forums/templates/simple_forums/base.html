@@ -1,3 +1,4 @@
+{% load simple_forums %}
 {% load static %}
 
 <!DOCTYPE html>
@@ -20,11 +21,11 @@
                 {% if request.user.is_authenticated %}
 
                     <li><a href="{% url 'thread-create' %}">New Thread</a></li>
-                    <li><a href="{% url 'logout' %}">Log Out</a></li>
+                    <li><a href="{% logout_url %}">Log Out</a></li>
 
                 {% else %}
 
-                    <li><a href="{% url 'login' %}">Log In</a></li>
+                    <li><a href="{% login_url %}">Log In</a></li>
 
                 {% endif %}
 
