@@ -1,12 +1,120 @@
+from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
+from simple_forums import models
 from simple_forums.tests.testing_utils import (
     create_message,
     create_thread,
-    create_topic,
-    thread_detail_url,
-    thread_list_url)
+    create_topic,)
+from simple_forums.utils import thread_detail_url, thread_list_url
+
+
+class AuthenticationTestCase(TestCase):
+    """ Allows for easy authentication. """
+    USERNAME = 'test'
+    PASSWORD = 'test'
+
+    def setUp(self, *args, **kwargs):
+        """ Create a user for authentication. """
+        self.user = get_user_model().objects.create_user(
+            username=self.USERNAME,
+            password=self.PASSWORD)
+
+        return super(AuthenticationTestCase, self).setUp(*args, **kwargs)
+
+    def assertLoginRedirect(self, response, next_url):
+        """ Assert that the response redirects to the login url """
+        login_url = '%s?next=%s' % (settings.LOGIN_URL, next_url)
+        self.assertRedirects(response, login_url)
+
+    def login(self):
+        """ Log in the test client """
+        self.client.login(
+            username=self.USERNAME,
+            password=self.PASSWORD)
+
+
+class TestThreadCreateView(AuthenticationTestCase):
+    """ Tests for ThreadCreateView """
+
+    URL = reverse('thread-create')
+
+    def test_empty_post(self):
+        """ Test submitting empty form.
+
+        If an empty form is submitted, the user should be redirected
+        back to the thread creation form and errors should be shown.
+        """
+        self.login()
+
+        response = self.client.post(self.URL, {})
+
+        form = response.context['form']
+
+        self.assertEqual(200, response.status_code)
+        self.assertTrue(form.is_bound)
+        self.assertFalse(form.is_valid())
+
+    def test_get(self):
+        """ Test submitting a GET request to the view.
+
+        A GET request to this view should display a form for creating a
+        new thread.
+        """
+        self.login()
+
+        response = self.client.get(self.URL)
+
+        form = response.context['form']
+
+        self.assertEqual(200, response.status_code)
+        self.assertFalse(form.is_bound)
+
+    def test_not_authenticated_get(self):
+        """ Test unauthenticated user submitting a GET request.
+
+        If a GET request is made by a user who is not authenticated,
+        then they should be redirected to the login page.
+        """
+        response = self.client.get(self.URL)
+
+        self.assertLoginRedirect(response, self.URL)
+
+    def test_not_authenticated_post(self):
+        """ Test unauthenticated user submitting a POST request.
+
+        If a POST request is made by a user who is not authenticated,
+        then they should be redirected to the login page.
+        """
+        response = self.client.post(self.URL, {})
+
+        self.assertLoginRedirect(response, self.URL)
+
+    def test_valid_form(self):
+        """ Test authenticated user submitting a valid form.
+
+        If an authenticated user submits a valid form, then a new
+        thread should be created.
+        """
+        self.login()
+
+        topic = create_topic()
+        data = {
+            'topic': '%d' % topic.pk,
+            'title': 'Test Thread Title',
+            'body': 'Test thread body',
+        }
+
+        response = self.client.post(self.URL, data)
+
+        thread = models.Thread.objects.get()
+        message = thread.message_set.get()
+
+        self.assertRedirects(response, thread_detail_url(thread=thread))
+        self.assertEqual(data['title'], thread.title)
+        self.assertEqual(data['body'], message.body)
 
 
 class TestThreadDetailView(TestCase):

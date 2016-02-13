@@ -1,7 +1,23 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views import generic
 
-from simple_forums import models
+from simple_forums import forms, models
+from simple_forums.utils import thread_detail_url
+
+
+class ThreadCreateView(LoginRequiredMixin, generic.edit.FormView):
+    """ View for creating new threads """
+
+    template_name = 'simple_forums/thread_create.html'
+    form_class = forms.ThreadCreationForm
+
+    def form_valid(self, form):
+        """ Save form if it is valid """
+        thread = form.save(self.request.user)
+
+        return HttpResponseRedirect(thread_detail_url(thread=thread))
 
 
 class ThreadDetailView(generic.DetailView):
