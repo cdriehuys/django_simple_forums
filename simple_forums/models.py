@@ -22,6 +22,7 @@ class Thread(models.Model):
 
     topic = models.ForeignKey('Topic')
     title = models.CharField(max_length=200)
+    sticky = models.BooleanField(default=False)
     slug = models.SlugField()
     time_created = models.DateTimeField(default=timezone.now)
 
