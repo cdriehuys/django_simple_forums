@@ -59,6 +59,18 @@ class TestMessageModel(TestCase):
 
         self.assertEqual(message.body, str(message))
 
+    def test_update_last_activity_time(self):
+        """ Test if saving a message updates its parent thread.
+
+        Saving a message should update the 'time_last_activity' field
+        on its parent thread instance.
+        """
+        past = timezone.now() - timedelta(days=1)
+        thread = create_thread(time_created=past)
+        message = create_message(thread=thread)
+
+        self.assertEqual(message.time_created, thread.time_last_activity)
+
 
 class TestThreadModel(TestCase):
     """ Tests for the thread model """

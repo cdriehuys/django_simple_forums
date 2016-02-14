@@ -16,6 +16,14 @@ class Message(models.Model):
         """ Return the message's body """
         return self.body
 
+    def save(self, *args, **kwargs):
+        """ Update the parent thread's 'time_last_activity' field """
+        if self.time_created > self.thread.time_last_activity:
+            self.thread.time_last_activity = self.time_created
+            self.thread.save()
+
+        return super(Message, self).save(*args, **kwargs)
+
 
 class Thread(models.Model):
     """ A thread with a title """
@@ -25,6 +33,13 @@ class Thread(models.Model):
     sticky = models.BooleanField(default=False)
     slug = models.SlugField()
     time_created = models.DateTimeField(default=timezone.now)
+    time_last_activity = models.DateTimeField(default=timezone.now)
+
+    def __init__(self, *args, **kwargs):
+        """ Initialize 'time_last_activity' to 'time_created' """
+        super(Thread, self).__init__(*args, **kwargs)
+
+        self.time_last_activity = self.time_created
 
     def __str__(self):
         """ Return the thread's title """
@@ -52,20 +67,6 @@ class Thread(models.Model):
             self.slug = slugify(self.title)[:50]
 
         return super(Thread, self).save(*args, **kwargs)
-
-    @property
-    def time_last_activity(self):
-        """ Return the time of the last activity on the thread.
-
-        If the thread has no replies, this method returns the time of
-        this thread's creation. If there are replies, it returns the
-        time of the most recent message.
-        """
-        if self.message_set.count():
-            messages = self.message_set.order_by('-time_created')
-            return messages.first().time_created
-
-        return self.time_created
 
 
 class Topic(models.Model):

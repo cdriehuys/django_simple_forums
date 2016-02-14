@@ -75,7 +75,9 @@ class ThreadListView(generic.ListView):
 
     def get_queryset(self):
         """ Return all non-sticky threads """
-        return self._get_base_queryset().exclude(sticky=True)
+        return self._get_base_queryset() \
+            .exclude(sticky=True) \
+            .order_by('-time_last_activity')
 
 
 class TopicListView(generic.ListView):

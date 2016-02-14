@@ -1,7 +1,10 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+from django.utils import timezone
 
 from simple_forums import models
 from simple_forums.tests.testing_utils import (
@@ -309,6 +312,29 @@ class TestThreadListView(TestCase):
         self.assertQuerysetEqual(
             response.context['thread_list'],
             ['<Thread: %s>' % thread])
+
+    def test_threads(self):
+        """ Test view with multiple threads.
+
+        If there are multiple threads, they should be ordered by the
+        date of their last activity.
+        """
+        past = timezone.now() - timedelta(days=1)
+        thread1 = create_thread(
+            topic=self.topic,
+            title='Test Thread 1',
+            time_created=past)
+        thread2 = create_thread(
+            topic=self.topic,
+            title='Test Thread 2')
+
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            ['<Thread: %s>' % thread2, '<Thread: %s>' % thread1])
 
     def test_sticky_thread(self):
         """ Test view when there is a sticky thread.
