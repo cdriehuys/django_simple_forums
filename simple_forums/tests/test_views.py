@@ -336,6 +336,17 @@ class TestThreadListView(TestCase):
             response.context['thread_list'],
             ['<Thread: %s>' % thread2, '<Thread: %s>' % thread1])
 
+    def test_topic_context(self):
+        """ Test passing the topic as a context variable.
+
+        This view should have the parent topic as a context variable.
+        """
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(self.topic, response.context['topic'])
+
     def test_sticky_thread(self):
         """ Test view when there is a sticky thread.
 
