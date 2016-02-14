@@ -1,0 +1,7 @@
+<tr>
+    <td colspan="8">
+        <a href="{% url 'thread-detail' thread.topic.pk thread.topic.slug thread.pk thread.slug %}">{% if thread.sticky %}&#128204; {% endif %}{{ thread.title }}</a>
+    </td>
+    <td colspan="2">{{ thread.num_replies }}</td>
+    <td colspan="2">{{ thread.time_last_activity }}</td>
+</tr>

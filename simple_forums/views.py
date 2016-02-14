@@ -57,17 +57,25 @@ class ThreadListView(generic.ListView):
 
     model = models.Thread
 
-    def get_queryset(self):
-        """ Filter the queryset based on topic.
+    def get_context_data(self, **kwargs):
+        context = super(ThreadListView, self).get_context_data(**kwargs)
 
-        The only threads that should be included are the ones for the
-        topic specified in the url.
-        """
+        sticky_threads = self._get_base_queryset().filter(sticky=True)
+        context['sticky_thread_list'] = sticky_threads
+
+        return context
+
+    def _get_base_queryset(self):
+        """ Retrieve all threads associated with the given topic """
         topic = get_object_or_404(
             models.Topic,
             pk=self.kwargs.get('topic_pk'))
 
         return self.model.objects.filter(topic=topic)
+
+    def get_queryset(self):
+        """ Return all non-sticky threads """
+        return self._get_base_queryset().exclude(sticky=True)
 
 
 class TopicListView(generic.ListView):

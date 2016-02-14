@@ -149,6 +149,15 @@ class TestThreadModel(TestCase):
 
         self.assertEqual('a' * 50, thread.slug)
 
+    def test_sticky_default(self):
+        """ Test default 'sticky' value.
+
+        Threads should not be sticky by default.
+        """
+        thread = create_thread()
+
+        self.assertFalse(thread.sticky)
+
     def test_string_conversion(self):
         """ Test converting a thread instance to a string.
 

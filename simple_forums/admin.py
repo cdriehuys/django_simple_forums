@@ -40,7 +40,7 @@ class ThreadAdmin(admin.ModelAdmin):
 
     fieldsets = (
         (None, {
-            'fields': ('topic', 'title'),
+            'fields': ('topic', 'title', 'sticky'),
         }),
         ('Date & Time Options', {
             'classes': ('collapse',),

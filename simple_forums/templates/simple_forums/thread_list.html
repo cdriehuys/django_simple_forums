@@ -2,7 +2,7 @@
 
 {% block content %}
 
-	{% if thread_list %}
+	{% if thread_list or sticky_thread_list %}
 
 		<table>
 
@@ -16,17 +16,19 @@
 
 			<tbody>
 
-				{% for thread in thread_list %}
+				{% for thread in sticky_thread_list %}
 
-					<tr>
-						<td colspan="8">
-							<a href="{% url 'thread-detail' thread.topic.pk thread.topic.slug thread.pk thread.slug %}">{{ thread.title }}</a>
-						</td>
-						<td colspan="2">{{ thread.num_replies }}</td>
-						<td colspan="2">{{ thread.time_last_activity }}</td>
-					</tr>
+					{% include 'simple_forums/snippets/render_thread_listing.html' %}
 
 				{% endfor %}
+
+				{% for thread in thread_list %}
+
+					{% include 'simple_forums/snippets/render_thread_listing.html' %}
+
+				{% endfor %}
+
+			</tbody>
 
 		</table>
 
