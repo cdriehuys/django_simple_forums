@@ -50,6 +50,7 @@ def create_thread(**kwargs):
 
     topic = kwargs.pop('topic', None)
     title = kwargs.pop('title', 'test thread')
+    sticky = kwargs.pop('sticky', None)
     time_created = kwargs.pop('time_created', None)
 
     if len(kwargs) > 0:
@@ -62,11 +63,15 @@ def create_thread(**kwargs):
         topic=topic,
         title=title)
 
-    # Since this field has a default value defined in the model itself,
-    # don't pass it if its value is None
+    # Since these fields have a default value defined in the model
+    # itself, don't pass them if their value is None
+    if sticky is not None:
+        thread_kwargs['sticky'] = sticky
+
     if time_created is not None:
         thread_kwargs['time_created'] = time_created
 
+    # Create the thread with the given parameters
     return models.Thread.objects.create(**thread_kwargs)
 
 

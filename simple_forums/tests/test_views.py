@@ -310,6 +310,29 @@ class TestThreadListView(TestCase):
             response.context['thread_list'],
             ['<Thread: %s>' % thread])
 
+    def test_sticky_thread(self):
+        """ Test view when there is a sticky thread.
+
+        If there is a sticky thread, it should be in a context variable
+        for the sticky threads, and not in the one for normal threads.
+        """
+        thread = create_thread(topic=self.topic)
+        sticky_thread = create_thread(
+            topic=self.topic,
+            title='Sticky Thread',
+            sticky=True)
+
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            ['<Thread: %s>' % thread])
+        self.assertQuerysetEqual(
+            response.context['sticky_thread_list'],
+            ['<Thread: %s>' % sticky_thread])
+
 
 class TestTopicListView(TestCase):
     """ Tests for TopicListView """
