@@ -63,6 +63,11 @@ class ThreadListView(generic.ListView):
         sticky_threads = self._get_base_queryset().filter(sticky=True)
         context['sticky_thread_list'] = sticky_threads
 
+        topic = get_object_or_404(
+            models.Topic,
+            pk=self.kwargs.get('topic_pk'))
+        context['topic'] = topic
+
         return context
 
     def _get_base_queryset(self):
