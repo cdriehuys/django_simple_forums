@@ -1,5 +1,7 @@
 {% extends 'simple_forums/base.html' %}
 
+{% block page_title %}{{ topic.title }}{% endblock %}
+
 {% block content %}
 
 	{% if thread_list or sticky_thread_list %}

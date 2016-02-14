@@ -2,6 +2,8 @@
 
 {% load simple_forums %}
 
+{% block page_title %}{{ thread.title }}{% endblock %}
+
 {% block content %}
 
 	<h1>{{ thread.title }}</h1>
