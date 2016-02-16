@@ -3,7 +3,7 @@ from django.core.urlresolvers import reverse
 from django.template.defaultfilters import urlencode
 from django.utils.safestring import mark_safe
 
-from simple_forums.markup_renderers import markdown
+from simple_forums.markup_renderers import MarkdownRenderer
 
 
 register = template.Library()
@@ -30,6 +30,6 @@ def logout_url(context):
 @register.simple_tag
 def render_markup(text):
     """ Render text using the renderer specified in settings.py """
-    renderer = markdown.MarkdownRenderer()
+    renderer = MarkdownRenderer()
 
     return mark_safe(renderer.render(text))
