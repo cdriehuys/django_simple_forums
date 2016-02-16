@@ -68,3 +68,8 @@ STATIC_URL = '/static/'
 
 
 LOGIN_URL = '/'
+
+
+SIMPLE_FORUMS = {
+    'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
+}

@@ -127,3 +127,8 @@ STATIC_URL = '/static/'
 
 
 LOGIN_REDIRECT_URL = '/forums/'
+
+
+SIMPLE_FORUMS = {
+    'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
+}
