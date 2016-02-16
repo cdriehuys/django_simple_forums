@@ -29,5 +29,6 @@ setup(
         'bleach-whitelist',
         'django',
         'markdown',
+        'pymdown-extensions',
     ],
     zip_safe=False)

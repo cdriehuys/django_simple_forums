@@ -4,6 +4,7 @@ bleach-whitelist
 bumpversion
 flake8
 markdown
+pymdown-extensions
 
 # Version Constrained Packages
 django >=1.9,<1.10
