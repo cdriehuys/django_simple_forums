@@ -25,6 +25,9 @@ setup(
     ],
     packages=['simple_forums'],
     install_requires=[
-        'django'
+        'bleach',
+        'bleach-whitelist',
+        'django',
+        'markdown',
     ],
     zip_safe=False)

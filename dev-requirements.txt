@@ -1,6 +1,9 @@
 # Unconstrained Packages
+bleach
+bleach-whitelist
 bumpversion
 flake8
+markdown
 
 # Version Constrained Packages
 django >=1.9,<1.10
