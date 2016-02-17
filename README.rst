@@ -25,7 +25,7 @@ Links
 
 .. _Github: https://github.com/smalls12/django_simple_forums
 .. _Github Issue Tracker: https://github.com/smalls12/django_simple_forums/issues
-.. _Readthedocs.org: http://example.com/
+.. _Readthedocs.org: http://django-simple-forums.readthedocs.org/en/latest/
 
 License
 =======
