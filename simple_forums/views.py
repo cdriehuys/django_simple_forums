@@ -1,4 +1,3 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
@@ -6,6 +5,11 @@ from django.views import generic
 
 from simple_forums import forms, models
 from simple_forums.utils import thread_detail_url
+
+try:
+    from django.contrib.auth.mixins import LoginRequiredMixin
+except ImportError:
+    from simple_forums.compatability.mixins import LoginRequiredMixin
 
 
 class ThreadCreateView(LoginRequiredMixin, generic.edit.FormView):
