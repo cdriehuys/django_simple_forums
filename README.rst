@@ -3,19 +3,19 @@ Simple Forums
 =============
 
 .. image:: https://img.shields.io/travis/smalls12/django_simple_forums.svg
-   :target: https://img.shields.io/travis/smalls12/django_simple_forums
+   :target: https://travis-ci.org/smalls12/django_simple_forums
 
 .. image:: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums.svg
-   :target: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums
+   :target: https://codecov.io/github/smalls12/django_simple_forums
 
 .. image:: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums.svg
-   :target: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums
+   :target: https://scrutinizer-ci.com/g/smalls12/django_simple_forums/
 
 .. image:: https://img.shields.io/pypi/v/django_simple_forums.svg
-   :target: https://img.shields.io/pypi/v/django_simple_forums
+   :target: https://pypi.python.org/pypi/django-simple-forums
 
 .. image:: https://img.shields.io/gemnasium/smalls12/django_simple_forums.svg
-   :target: https://img.shields.io/gemnasium/smalls12/django_simple_forums
+   :target: https://gemnasium.com/smalls12/django_simple_forums
 
 Goals
 =====
