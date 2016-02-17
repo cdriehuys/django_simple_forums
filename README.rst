@@ -5,36 +5,29 @@ Simple Forums
 Important Note
 ==============
 
-This package is currently in early alpha (version < 1.0.0). This means that backwards incompatible changes can be introduced at any time as described `here <http://semver.org/#spec-item-4>`_.
+This package is currently in early alpha (version < 1.0.0). This means that backwards incompatible changes can be introduced at any time as described in the `semver description`_.
 
-Installation
-============
+.. _semver description: http://semver.org/#spec-item-4
 
-The easiest way to install simple forums is using pip::
+What is This?
+=============
 
-	$ pip install django-simple-forums
+Simple forums aims to be a basic forum package for django that allows for creation of a basic forum in which there are various categories that each have user created threads under them.
 
-Usage
+Links
 =====
 
-Add ``simple_forums`` to your ``INSTALLED_APPS`` in ``settings.py``::
+**Source Code**: `Github`_
 
-	INSTALLED_APPS = [
-		# default django apps
-		...
-		'simple_forums',
-		...
-		# your custom apps
-	]
+**Documentation**: `Readthedocs.org`_
 
-In order to use the views included in simple forums, you must include the url patterns for the forums in your ``urls.py``::
+**Reporting Issues**: `Github Issue Tracker`_
 
-	url_patterns = [
-		...
-		url(r'^forums/', include('simple_forums.urls')),
-		...
-	]
+.. _Github: https://github.com/smalls12/django_simple_forums
+.. _Github Issue Tracker: https://github.com/smalls12/django_simple_forums/issues
+.. _Readthedocs.org: http://example.com/
 
-Finally, apply the migrations from simple forums::
+License
+=======
 
-	$ ./manage.py migrate
+This project is licensed under the GPL v3 license.
