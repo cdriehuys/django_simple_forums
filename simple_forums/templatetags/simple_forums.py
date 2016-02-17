@@ -4,7 +4,6 @@ from django import template
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import urlencode
-from django.utils.safestring import mark_safe
 
 
 register = template.Library()
@@ -12,7 +11,9 @@ register = template.Library()
 
 def get_renderer_class():
     """ Determine the renderer class from the settings file """
-    render_string = settings.SIMPLE_FORUMS.get('markup_renderer')
+    render_string = settings.SIMPLE_FORUMS.get(
+        'markup_renderer',
+        'simple_forums.markup_renderers.TextRenderer')
 
     module, class_name = render_string.rsplit('.', 1)
 
@@ -43,4 +44,4 @@ def render_markup(text):
     renderer_class = get_renderer_class()
     renderer = renderer_class()
 
-    return mark_safe(renderer.render(text))
+    return renderer.render(text)

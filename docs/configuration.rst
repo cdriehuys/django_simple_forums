@@ -14,8 +14,9 @@ Available Settings
 markdown_extensions (=['pymdownx.github'])
   A list of extensions to process markdown with. Only has an effect if ``MarkdownRenderer`` is used. The default list of extensions is defined in ``simple_forums.markup_renderers.MarkdownRenderer.DEFAULT_EXTENSIONS``.
 
-markup_renderer (='simple_forums.markup_renderers.MarkdownRenderer')
-  This class specifies which form of markup should be used to render posts. The only currently supported markup language is Markdown.
+markup_renderer (='simple_forums.markup_renderers.TextRenderer')
+  This class specifies which form of markup should be used to render posts. Currently there is a choice between plain text and Markdown.
 
   Choices:
     * ``'simple_forums.markup_renderers.MarkdownRenderer'``
+    * ``'simple_forums.markup_renderers.TextRenderer'``
