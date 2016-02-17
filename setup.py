@@ -28,6 +28,7 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     packages=find_packages(exclude=['example_project']),
+    include_package_data=True,
     install_requires=[
         'bleach',
         'bleach-whitelist',
