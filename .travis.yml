@@ -1,17 +1,28 @@
 language: python
 python:
   - "2.7"
+  - "3.3"
   - "3.4"
   - "3.5"
 
-# upgrade pip first
+env:
+  matrix:
+    - DJANGO="django >=1.8,<1.9"
+    - DJANGO="django >=1.9,<1.10"
+
+matrix:
+  exclude:
+    - python: "3.3"
+      env: DJANGO="django >=1.9,<1.10"
+
 before_install:
-  - "pip install --upgrade pip"
+  # pip >= 8 dropped support for python 3.2
+  - pip install "pip<8.0.0" wheel
 
 # install dependencies
 install:
-  - pip install -r dev-requirements.txt
-  - pip install codecov
+  - pip install "$DJANGO"
+  - pip install bleach bleach-whitelist codecov flake8 markdown pymdown-extensions
 
 # lint before testing
 before_script:
