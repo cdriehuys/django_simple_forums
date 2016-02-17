@@ -2,15 +2,8 @@
 Simple Forums
 =============
 
-Important Note
-==============
-
-This package is currently in early alpha (version < 1.0.0). This means that backwards incompatible changes can be introduced at any time as described in the `semver description`_.
-
-.. _semver description: http://semver.org/#spec-item-4
-
-What is This?
-=============
+Goals
+=====
 
 Simple forums aims to be a basic forum package for django that allows for creation of a basic forum in which there are various categories that each have user created threads under them.
 
