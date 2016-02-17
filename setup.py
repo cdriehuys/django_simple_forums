@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import find_packages, setup
 
 
 def readme():
@@ -27,7 +27,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
     ],
-    packages=['simple_forums'],
+    packages=find_packages(exclude=['example_project']),
     install_requires=[
         'bleach',
         'bleach-whitelist',
