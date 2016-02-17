@@ -2,6 +2,21 @@
 Simple Forums
 =============
 
+.. image:: https://img.shields.io/travis/smalls12/django_simple_forums.svg
+   :target: https://img.shields.io/travis/smalls12/django_simple_forums
+
+.. image:: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums.svg
+   :target: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums
+
+.. image:: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums.svg
+   :target: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums
+
+.. image:: https://img.shields.io/pypi/v/django_simple_forums.svg
+   :target: https://img.shields.io/pypi/v/django_simple_forums
+
+.. image:: https://img.shields.io/gemnasium/smalls12/django_simple_forums.svg
+   :target: https://img.shields.io/gemnasium/smalls12/django_simple_forums
+
 Goals
 =====
 
