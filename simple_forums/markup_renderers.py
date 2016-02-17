@@ -3,6 +3,7 @@ import bleach
 from bleach_whitelist.bleach_whitelist import markdown_attrs, markdown_tags
 
 from django.conf import settings
+from django.utils.safestring import mark_safe
 
 from markdown import markdown
 
@@ -35,7 +36,17 @@ class MarkdownRenderer(BaseRenderer):
             text,
             extensions=MarkdownRenderer.get_extensions())
 
-        return bleach.clean(
+        cleaned = bleach.clean(
             converted,
             tags=markdown_tags + ['pre'],
             attributes=markdown_attrs)
+
+        return mark_safe(cleaned)
+
+
+class TextRenderer(BaseRenderer):
+    """ Renders text as itself """
+
+    def render(self, text):
+        """ Return the text """
+        return text
