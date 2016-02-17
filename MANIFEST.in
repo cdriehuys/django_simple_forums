@@ -1,1 +1,5 @@
+include LICENSE
 include README.rst
+include test_settings.py
+recursive-include simple_forums *.html *.txt *.xml *.po *.mo *.js
+recursive-include docs Makefile conf.py *.rst
