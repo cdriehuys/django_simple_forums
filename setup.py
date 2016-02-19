@@ -8,7 +8,7 @@ def readme():
 
 setup(
     name='django_simple_forums',
-    version='1.0.7',
+    version='1.0.8',
     description='A simple forums app for Django',
     long_description=readme(),
     url='http://github.com/smalls12/django_simple_forums',
