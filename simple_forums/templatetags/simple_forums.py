@@ -1,9 +1,10 @@
 import importlib
 
 from django import template
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import urlencode
+
+from simple_forums.utils import get_setting
 
 
 register = template.Library()
@@ -11,7 +12,7 @@ register = template.Library()
 
 def get_renderer_class():
     """ Determine the renderer class from the settings file """
-    render_string = settings.SIMPLE_FORUMS.get(
+    render_string = get_setting(
         'markup_renderer',
         'simple_forums.markup_renderers.TextRenderer')
 
