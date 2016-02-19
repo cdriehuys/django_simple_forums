@@ -1,6 +1,19 @@
+from django.conf import settings
 from django.core.urlresolvers import reverse
 
 from simple_forums import models
+
+
+def get_setting(setting_name, default=None):
+    """ Get the specified setting.
+
+    If the setting exists, it will be returned. Otherwise, the default
+    value will be returned.
+    """
+    if hasattr(settings, 'SIMPLE_FORUMS'):
+        return settings.get(setting_name, default)
+
+    return default
 
 
 def thread_detail_url(pk=None, thread=None):

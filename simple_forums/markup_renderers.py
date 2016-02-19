@@ -2,10 +2,11 @@ import bleach
 
 from bleach_whitelist.bleach_whitelist import markdown_attrs, markdown_tags
 
-from django.conf import settings
 from django.utils.safestring import mark_safe
 
 from markdown import markdown
+
+from simple_forums.utils import get_setting
 
 
 class BaseRenderer:
@@ -26,7 +27,7 @@ class MarkdownRenderer(BaseRenderer):
     @staticmethod
     def get_extensions():
         """ Get a list of extensions to use """
-        return settings.SIMPLE_FORUMS.get(
+        return get_setting(
             'markdown_extensions',
             MarkdownRenderer.DEFAULT_EXTENSIONS)
 
