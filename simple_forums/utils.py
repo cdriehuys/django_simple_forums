@@ -10,7 +10,7 @@ def get_setting(setting_name, default=None):
     If the setting exists, it will be returned. Otherwise, the default
     value will be returned.
     """
-    settings_dict = getattr(settings, 'SIMPLE_FORUMS')
+    settings_dict = getattr(settings, 'SIMPLE_FORUMS', None)
 
     if settings_dict:
         return settings_dict.get(setting_name, default)
