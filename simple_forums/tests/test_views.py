@@ -167,6 +167,25 @@ class TestThreadDetailView(AuthenticationTestCase):
         self.assertEqual(self.user, message.user)
         self.assertEqual(data['body'], message.body)
 
+    def test_reply_empty(self):
+        """ Test submitting an empty reply form.
+
+        If an empty reply form is submitted, the user should be
+        redirected back to the reply form, and an error should be
+        displayed on the form.
+
+        Regression test for #23
+        """
+        self.login()
+
+        thread = create_thread()
+
+        url = thread_detail_url(thread=thread)
+        response = self.client.post(url, {})
+
+        self.assertEqual(200, response.status_code)
+        self.assertEqual(thread, response.context['thread'])
+
     def test_reply_unauthenticated(self):
         """ Test replying while unauthenticated.
 

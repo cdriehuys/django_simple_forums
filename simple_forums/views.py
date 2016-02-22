@@ -53,7 +53,10 @@ class ThreadDetailView(generic.DetailView):
 
             return HttpResponseRedirect(thread_detail_url(thread=self.object))
 
-        return render(request, self.get_template_names(), {'reply_form': form})
+        context = self.get_context_data()
+        context['reply_form'] = form
+
+        return render(request, self.get_template_names(), context)
 
 
 class ThreadListView(generic.ListView):
