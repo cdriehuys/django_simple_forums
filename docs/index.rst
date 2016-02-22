@@ -14,6 +14,9 @@ Contents
    configuration
 
 
+.. include:: changelog.rst
+
+
 
 Indices and tables
 ==================
