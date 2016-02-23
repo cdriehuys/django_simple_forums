@@ -17,6 +17,10 @@ Simple Forums
 .. image:: https://img.shields.io/gemnasium/smalls12/django_simple_forums.svg
    :target: https://gemnasium.com/smalls12/django_simple_forums
 
+.. image:: https://landscape.io/github/smalls12/django_simple_forums/master/landscape.svg?style=flat
+   :target: https://landscape.io/github/smalls12/django_simple_forums/master
+   :alt: Code Health
+
 Goals
 =====
 
