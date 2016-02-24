@@ -17,6 +17,7 @@
         <nav>
             <ul>
                 <li><a href="{% url 'topic-list' %}">Home</a></li>
+                <li><a href="{% url 'search' %}">Search</a></li>
 
                 {% if request.user.is_authenticated %}
 

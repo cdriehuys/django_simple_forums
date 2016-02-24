@@ -4,12 +4,48 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
 from simple_forums import forms, models
+from simple_forums.backends.search import simple_search
 from simple_forums.utils import thread_detail_url
 
 try:
     from django.contrib.auth.mixins import LoginRequiredMixin
 except ImportError:
     from simple_forums.compatability.mixins import LoginRequiredMixin
+
+
+class SearchView(generic.View):
+    """ View for searching """
+
+    template_name = 'simple_forums/search.html'
+    query_kwarg = 'q'
+
+    def get(self, request, *args, **kwargs):
+        """ Show the search form and results if applicable """
+        self.args = args
+        self.kwargs = kwargs
+        self.request = request
+
+        return render(request, self.template_name, self.get_context_data())
+
+    def get_context_data(self, **kwargs):
+        context = dict()
+
+        query = self.get_query()
+        if query is not None:
+            context['results'] = self.get_queryset()
+            context['query'] = query
+
+        return context
+
+    def get_query(self):
+        """ Return the query passed as a GET parameter """
+        return self.request.GET.get(self.query_kwarg, None)
+
+    def get_queryset(self):
+        """ Return the list of threads that match the query """
+        backend = simple_search.SimpleSearch()
+
+        return backend.search(self.get_query())
 
 
 class ThreadCreateView(LoginRequiredMixin, generic.edit.FormView):
