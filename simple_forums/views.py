@@ -32,8 +32,8 @@ class SearchView(generic.View):
 
         query = self.get_query()
         if query is not None:
-            context['results'] = self.get_queryset()
             context['query'] = query
+            context['results'] = self.get_queryset()
 
         return context
 
