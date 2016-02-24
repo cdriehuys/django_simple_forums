@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
@@ -44,6 +45,17 @@ class Thread(models.Model):
     def __str__(self):
         """ Return the thread's title """
         return self.title
+
+    def get_absolute_url(self):
+        """ Return the url of the instance's detail view """
+        url_kwargs = {
+            'topic_pk': self.topic.pk,
+            'topic_slug': self.topic.slug,
+            'thread_pk': self.pk,
+            'thread_slug': self.slug,
+        }
+
+        return reverse('thread-detail', kwargs=url_kwargs)
 
     @property
     def num_replies(self):
