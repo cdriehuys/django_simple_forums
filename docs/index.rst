@@ -12,6 +12,7 @@ Contents
    overview
    installation
    configuration
+   templates
 
 
 .. include:: changelog.rst
