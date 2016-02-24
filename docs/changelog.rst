@@ -1,6 +1,10 @@
 Changelog
 =========
 
+v1.1.1
+  General
+    * Adding documentation for templates and searching.
+
 v1.1.0
   Features
     * Close 18_: Adding a basic search engine.

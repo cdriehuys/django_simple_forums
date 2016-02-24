@@ -13,6 +13,7 @@ Contents
    installation
    configuration
    templates
+   searching
 
 
 .. include:: changelog.rst
