@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
 
@@ -103,6 +104,24 @@ class TestThreadModel(TestCase):
         end_time = timezone.now()
 
         self.assertTrue(start_time <= thread.time_created <= end_time)
+
+    def test_get_absolute_url(self):
+        """ Test getting the url of a thread instance.
+
+        This method should return the url of the instance's detail
+        view.
+        """
+        thread = create_thread()
+
+        url_kwargs = {
+            'topic_pk': thread.topic.pk,
+            'topic_slug': thread.topic.slug,
+            'thread_pk': thread.pk,
+            'thread_slug': thread.slug,
+        }
+        url = reverse('thread-detail', kwargs=url_kwargs)
+
+        self.assertEqual(url, thread.get_absolute_url())
 
     def test_num_replies_with_no_replies(self):
         """ Test retrieving the number of replies for a thread.
