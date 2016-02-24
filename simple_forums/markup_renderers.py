@@ -59,7 +59,8 @@ class MarkdownRenderer(BaseRenderer):
         """ Convert the given text into html """
         converted = markdown(
             text,
-            extensions=MarkdownRenderer.get_extensions())
+            extensions=MarkdownRenderer.get_extensions(),
+            output_format='html5')
 
         cleaned = bleach.clean(
             converted,
