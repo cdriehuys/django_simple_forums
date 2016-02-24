@@ -31,7 +31,6 @@ setup(
     include_package_data=True,
     install_requires=[
         'bleach',
-        'bleach-whitelist',
         'django',
         'markdown',
         'pymdown-extensions',

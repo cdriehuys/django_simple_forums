@@ -1,7 +1,5 @@
 import bleach
 
-from bleach_whitelist.bleach_whitelist import markdown_attrs, markdown_tags
-
 from django.utils.safestring import mark_safe
 
 from markdown import markdown
@@ -24,6 +22,32 @@ class MarkdownRenderer(BaseRenderer):
         'pymdownx.github',
     ]
 
+    # Attributes and tags used for rendering markdown taken from:
+    # https://github.com/yourcelf/bleach-whitelist
+    #
+    # Slightly modified
+
+    MARKDOWN_ATTRS = {
+        'a': ['alt', 'href', 'title'],
+        'img': ['alt', 'src', 'title'],
+    }
+
+    MARKDOWN_TAGS = {
+        'a',
+        'b', 'blockquote', 'br',
+        'code',
+        'dd', 'div', 'dt',
+        'em',
+        'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr',
+        'i', 'img',
+        'li',
+        'ol',
+        'p',
+        'span', 'strong',
+        'tt',
+        'ul',
+    }
+
     @staticmethod
     def get_extensions():
         """ Get a list of extensions to use """
@@ -39,8 +63,8 @@ class MarkdownRenderer(BaseRenderer):
 
         cleaned = bleach.clean(
             converted,
-            tags=markdown_tags + ['pre'],
-            attributes=markdown_attrs)
+            attributes=self.MARKDOWN_ATTRS,
+            tags=self.MARKDOWN_TAGS)
 
         return mark_safe(cleaned)
 

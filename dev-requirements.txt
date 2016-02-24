@@ -1,6 +1,5 @@
 # Unconstrained Packages
 bleach
-bleach-whitelist
 bumpversion
 flake8
 markdown
