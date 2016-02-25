@@ -99,6 +99,12 @@ class ThreadListView(generic.ListView):
     """ View for listing threads """
 
     model = models.Thread
+    sort_default = ['-time_last_activity']
+    sort_mapping = {
+        'activity': ['time_last_activity'],
+        'title': ['title'],
+    }
+    sort_kwarg = 'sort'
 
     def get_context_data(self, **kwargs):
         context = super(ThreadListView, self).get_context_data(**kwargs)
@@ -123,9 +129,22 @@ class ThreadListView(generic.ListView):
 
     def get_queryset(self):
         """ Return all non-sticky threads """
-        return self._get_base_queryset() \
-            .exclude(sticky=True) \
-            .order_by('-time_last_activity')
+        queryset = self._get_base_queryset()
+        # exclude sticky posts
+        queryset = queryset.exclude(sticky=True)
+        # apply sorting
+        queryset = queryset.order_by(*self.get_sort_list())
+
+        return queryset
+
+    def get_sort_list(self):
+        """ Determine the sort field(s) from the url parameters """
+        sort = self.request.GET.get(self.sort_kwarg)
+
+        if sort in self.sort_mapping:
+            return self.sort_mapping.get(sort)
+
+        return self.sort_default
 
 
 class TopicListView(generic.ListView):
