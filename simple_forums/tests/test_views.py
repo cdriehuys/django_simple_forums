@@ -1,4 +1,5 @@
 from datetime import timedelta
+import sys
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -395,9 +396,17 @@ class TestThreadListView(TestCase):
         expected_sort_options = ['activity', 'title']
 
         self.assertEqual(200, response.status_code)
-        self.assertCountEqual(
-            expected_sort_options,
-            response.context['sort_options'])
+
+        # Assert lists equal for both python 2 and 3
+        if sys.version_info[0] < 3:
+            self.assertItemsEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+        else:
+            self.assertCountEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+
         self.assertEqual(
             'activity',
             response.context['sort_current'])
