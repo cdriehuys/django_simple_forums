@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.2.0
+------
+Features
+  * Close `#13`_: Adding ability to sort thread listing.
+
 v1.1.1
 ------
 Bug Fixes
@@ -19,6 +24,7 @@ v1.0.9
 Bug Fixes:
   * Fix `#23`_: Fixing issue where submitting a blank reply to a thread caused an error.
 
+.. _#13: https://github.com/smalls12/django_simple_forums/issues/13
 .. _#18: https://github.com/smalls12/django_simple_forums/issues/18
 .. _#21: https://github.com/smalls12/django_simple_forums/issues/21
 .. _#23: https://github.com/smalls12/django_simple_forums/issues/23

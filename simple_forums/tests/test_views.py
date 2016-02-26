@@ -1,4 +1,5 @@
 from datetime import timedelta
+import sys
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -327,6 +328,121 @@ class TestThreadListView(TestCase):
             response.context['thread_list'],
             [])
         self.assertContains(response, empty_message)
+
+    def test_sort_invalid_parameter(self):
+        """ Test behavior when an invalid sort value is used.
+
+        If the sorting method is invalid, the default sorting order
+        should be used (i.e. last activity time).
+        """
+        past = timezone.now() - timedelta(days=1)
+
+        thread1 = create_thread(
+            topic=self.topic,
+            title='thread 1',
+            time_created=past)
+        thread2 = create_thread(
+            topic=self.topic,
+            title='thread 2')
+
+        url = thread_list_url(topic=self.topic, sort='foo')
+        response = self.client.get(url)
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            ['<Thread: %s>' % thread2, '<Thread: %s>' % thread1])
+
+    def test_sort_title(self):
+        """ Test sorting by title field.
+
+        If the request has a GET variable of 'sort' with the value of
+        'title', then the threads should be ordered by title.
+        """
+        thread1 = create_thread(
+            topic=self.topic,
+            title='cats')
+        thread2 = create_thread(
+            topic=self.topic,
+            title='animals')
+        thread3 = create_thread(
+            topic=self.topic,
+            title='bats')
+
+        url = thread_list_url(topic=self.topic, sort='title')
+        response = self.client.get(url)
+
+        expected = [
+            '<Thread: %s>' % thread2,
+            '<Thread: %s>' % thread3,
+            '<Thread: %s>' % thread1,
+        ]
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            expected)
+
+    def test_sort_context(self):
+        """ Test default context pertaining to sorting.
+
+        By default, the sort_options should include all the fields by
+        which the threads are sortable. The context should also include
+        the current sort field and if the sort order is reversed.
+        """
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        expected_sort_options = ['activity', 'title']
+
+        self.assertEqual(200, response.status_code)
+
+        # Assert lists equal for both python 2 and 3
+        if sys.version_info[0] < 3:
+            self.assertItemsEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+        else:
+            self.assertCountEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+
+        self.assertEqual(
+            'activity',
+            response.context['sort_current'])
+        self.assertTrue(response.context['sort_reversed'])
+
+    def test_sort_title_reversed(self):
+        """ Test sorting by title field reversed.
+
+        If the request has a GET variable of 'sort' with the value of
+        'title', and a variable 'reverse' with the value of 'true',
+        then the threads should be ordered by title in reverse
+        alphabetical order.
+        """
+        thread1 = create_thread(
+            topic=self.topic,
+            title='cats')
+        thread2 = create_thread(
+            topic=self.topic,
+            title='animals')
+        thread3 = create_thread(
+            topic=self.topic,
+            title='bats')
+
+        url = thread_list_url(topic=self.topic, sort='title', rev=True)
+        response = self.client.get(url)
+
+        expected = [
+            '<Thread: %s>' % thread1,
+            '<Thread: %s>' % thread3,
+            '<Thread: %s>' % thread2,
+        ]
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            expected)
 
     def test_thread(self):
         """ Test view when there is a thread.

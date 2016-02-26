@@ -99,9 +99,21 @@ class ThreadListView(generic.ListView):
     """ View for listing threads """
 
     model = models.Thread
+    reverse_kwarg = 'rev'
+    sort_default = 'activity'
+    sort_default_reverse = True
+    sort_mapping = {
+        'activity': 'time_last_activity',
+        'title': 'title',
+    }
+    sort_kwarg = 'sort'
 
     def get_context_data(self, **kwargs):
         context = super(ThreadListView, self).get_context_data(**kwargs)
+
+        context['sort_current'] = self.sort_name
+        context['sort_options'] = [item for item in self.sort_mapping]
+        context['sort_reversed'] = self.sort_reversed
 
         sticky_threads = self._get_base_queryset().filter(sticky=True)
         context['sticky_thread_list'] = sticky_threads
@@ -123,9 +135,29 @@ class ThreadListView(generic.ListView):
 
     def get_queryset(self):
         """ Return all non-sticky threads """
-        return self._get_base_queryset() \
-            .exclude(sticky=True) \
-            .order_by('-time_last_activity')
+        self.sort_name = self.request.GET.get(
+            self.sort_kwarg,
+            None)
+
+        if self.sort_name not in self.sort_mapping:
+            self.sort_name = 'activity'
+            self.sort_reversed = True
+        else:
+            self.sort_reversed = self.request.GET.get(
+                self.reverse_kwarg, None) == 'true'
+
+        self.sort_field = self.sort_mapping.get(self.sort_name)
+
+        if self.sort_reversed:
+            self.sort_field = '-%s' % self.sort_field
+
+        queryset = self._get_base_queryset()
+        # exclude sticky posts
+        queryset = queryset.exclude(sticky=True)
+        # apply sorting
+        queryset = queryset.order_by(self.sort_field)
+
+        return queryset
 
 
 class TopicListView(generic.ListView):

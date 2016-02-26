@@ -40,7 +40,7 @@ def thread_detail_url(pk=None, thread=None):
     return reverse('thread-detail', kwargs=kwargs)
 
 
-def thread_list_url(topic_pk=None, topic=None):
+def thread_list_url(topic_pk=None, topic=None, sort=None, rev=False):
     """ Get the url of the thread list view for a topic.
 
     Uses either the topic's pk or the topic instance itself to
@@ -57,4 +57,17 @@ def thread_list_url(topic_pk=None, topic=None):
         'topic_slug': topic.slug,
     }
 
-    return reverse('thread-list', kwargs=kwargs)
+    url = reverse('thread-list', kwargs=kwargs)
+
+    args = []
+
+    if sort:
+        args.append('sort=%s' % sort)
+
+    if rev is True:
+        args.append('rev=true')
+
+    if args:
+        return '%s?%s' % (url, '&'.join(args))
+
+    return url
