@@ -382,6 +382,27 @@ class TestThreadListView(TestCase):
             response.context['thread_list'],
             expected)
 
+    def test_sort_context(self):
+        """ Test default context pertaining to sorting.
+
+        By default, the sort_options should include all the fields by
+        which the threads are sortable. The context should also include
+        the current sort field and if the sort order is reversed.
+        """
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        expected_sort_options = ['activity', 'title']
+
+        self.assertEqual(200, response.status_code)
+        self.assertCountEqual(
+            expected_sort_options,
+            response.context['sort_options'])
+        self.assertEqual(
+            'activity',
+            response.context['sort_current'])
+        self.assertTrue(response.context['sort_reversed'])
+
     def test_sort_title_reversed(self):
         """ Test sorting by title field reversed.
 
