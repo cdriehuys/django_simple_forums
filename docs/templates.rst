@@ -42,6 +42,9 @@ thread_list.html
   Context:
     - ``thread_list``: A list of all the non-sticky threads in the topic.
     - ``topic``: The topic whose threads are being listed.
+    - ``sort_current``: The name of the current sort option.
+    - ``sort_options``: A list of all possible sorting options.
+    - ``sort_reversed``: True if the current sorting order is reversed, False otherwise.
     - ``sticky_thread_list``: A list of all the sticky threads in the topic.
 
 topic_list.html
