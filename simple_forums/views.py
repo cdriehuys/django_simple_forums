@@ -99,6 +99,7 @@ class ThreadListView(generic.ListView):
     """ View for listing threads """
 
     model = models.Thread
+    reverse_kwarg = 'rev'
     sort_default = ['-time_last_activity']
     sort_mapping = {
         'activity': ['time_last_activity'],
@@ -140,9 +141,15 @@ class ThreadListView(generic.ListView):
     def get_sort_list(self):
         """ Determine the sort field(s) from the url parameters """
         sort = self.request.GET.get(self.sort_kwarg)
+        rev = self.request.GET.get(self.reverse_kwarg)
 
         if sort in self.sort_mapping:
-            return self.sort_mapping.get(sort)
+            result = self.sort_mapping.get(sort)
+
+            if rev == 'true':
+                result[0] = '-' + result[0]
+
+            return result
 
         return self.sort_default
 
