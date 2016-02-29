@@ -22,7 +22,7 @@ before_install:
 # install dependencies
 install:
   - pip install "$DJANGO"
-  - pip install bleach bleach-whitelist codecov flake8 markdown pymdown-extensions
+  - pip install bleach codecov flake8 markdown pymdown-extensions
 
 # lint before testing
 before_script:
