@@ -6,6 +6,20 @@
 
 	{% if thread_list or sticky_thread_list %}
 
+		<div class="sorting">
+			<h3>Sort By:</h3>
+
+			<ul>
+
+				{% for option in sort_options %}
+
+					<li><a href="{{ request.url }}?sort={{ option }}{% if sort_current == option and not sort_reversed %}&rev=true{% endif %}">{% if sort_current == option %}<i class="fa {% if sort_reversed %}fa-caret-down{% else %}fa-caret-up{% endif %}"></i> {% endif %}{{ option|title }}</a></li>
+
+				{% endfor %}
+
+			</ul>
+		</div>
+
 		<table>
 
 			<thead>

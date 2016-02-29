@@ -1,4 +1,5 @@
 from datetime import timedelta
+import sys
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -375,6 +376,67 @@ class TestThreadListView(TestCase):
             '<Thread: %s>' % thread2,
             '<Thread: %s>' % thread3,
             '<Thread: %s>' % thread1,
+        ]
+
+        self.assertEqual(200, response.status_code)
+        self.assertQuerysetEqual(
+            response.context['thread_list'],
+            expected)
+
+    def test_sort_context(self):
+        """ Test default context pertaining to sorting.
+
+        By default, the sort_options should include all the fields by
+        which the threads are sortable. The context should also include
+        the current sort field and if the sort order is reversed.
+        """
+        url = thread_list_url(topic=self.topic)
+        response = self.client.get(url)
+
+        expected_sort_options = ['activity', 'title']
+
+        self.assertEqual(200, response.status_code)
+
+        # Assert lists equal for both python 2 and 3
+        if sys.version_info[0] < 3:
+            self.assertItemsEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+        else:
+            self.assertCountEqual(
+                expected_sort_options,
+                response.context['sort_options'])
+
+        self.assertEqual(
+            'activity',
+            response.context['sort_current'])
+        self.assertTrue(response.context['sort_reversed'])
+
+    def test_sort_title_reversed(self):
+        """ Test sorting by title field reversed.
+
+        If the request has a GET variable of 'sort' with the value of
+        'title', and a variable 'reverse' with the value of 'true',
+        then the threads should be ordered by title in reverse
+        alphabetical order.
+        """
+        thread1 = create_thread(
+            topic=self.topic,
+            title='cats')
+        thread2 = create_thread(
+            topic=self.topic,
+            title='animals')
+        thread3 = create_thread(
+            topic=self.topic,
+            title='bats')
+
+        url = thread_list_url(topic=self.topic, sort='title', rev=True)
+        response = self.client.get(url)
+
+        expected = [
+            '<Thread: %s>' % thread1,
+            '<Thread: %s>' % thread3,
+            '<Thread: %s>' % thread2,
         ]
 
         self.assertEqual(200, response.status_code)
