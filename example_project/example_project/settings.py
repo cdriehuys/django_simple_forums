@@ -131,4 +131,9 @@ LOGIN_REDIRECT_URL = '/forums/'
 
 SIMPLE_FORUMS = {
     'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
+    'search_backend': {
+        'search_class': 'simple_forums.backends.search.ElasticSearch',
+        'host': 'localhost',
+        'port': 9200,
+    }
 }

@@ -5,6 +5,9 @@ python:
   - "3.4"
   - "3.5"
 
+services:
+  - elasticsearch
+
 env:
   matrix:
     - DJANGO="django >=1.8,<1.9"
@@ -26,6 +29,8 @@ install:
 
 # lint before testing
 before_script:
+  # allow elasticsearch to get setup
+  - sleep 10
   - flake8 .
 
 # run tests

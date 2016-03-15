@@ -4,7 +4,7 @@ import warnings
 from django.db.models import Q
 
 from simple_forums import models
-from simple_forums.backends.search import BaseSearch
+from simple_forums.backends.search import BaseSearch, SearchResultSet
 
 
 class SimpleSearch(BaseSearch):
@@ -20,8 +20,14 @@ class SimpleSearch(BaseSearch):
 
     def search(self, query_string):
         """ Search all thread instances for the given query string """
-        return models.Thread.objects.filter(
+        threads = models.Thread.objects.filter(
             reduce(
                 lambda q, f: q & Q(title__icontains=f),
                 query_string.split(),
                 Q()))
+
+        result_set = SearchResultSet()
+        for thread in threads:
+            result_set.add(thread)
+
+        return result_set
