@@ -48,3 +48,11 @@ class BaseSearch(object):
         classes of this class.
         """
         raise NotImplementedError
+
+    def wipe(self):
+        """ Wipes the search index.
+
+        This must be implemented by the search backends that are sub-
+        classes of this class.
+        """
+        raise NotImplementedError

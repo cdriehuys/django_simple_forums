@@ -4,7 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
 from simple_forums import forms, models
-from simple_forums.utils import get_setting, string_to_class, thread_detail_url
+from simple_forums.backends.search import get_search_class
+from simple_forums.utils import thread_detail_url
 
 try:
     from django.contrib.auth.mixins import LoginRequiredMixin
@@ -42,12 +43,7 @@ class SearchView(generic.View):
 
     def get_queryset(self):
         """ Return the list of threads that match the query """
-        backend_info = get_setting('search_backend', {})
-
-        backend = string_to_class(
-            backend_info.get(
-                'search_class',
-                'simple_forums.backends.search.SimpleSearch'))()
+        backend = get_search_class()()
 
         results = backend.search(self.get_query())
 

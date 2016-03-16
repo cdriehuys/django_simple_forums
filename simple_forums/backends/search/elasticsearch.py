@@ -68,3 +68,8 @@ class ElasticSearch(BaseSearch):
             result_set.add(thread, score)
 
         return result_set
+
+    def wipe(self):
+        """ Wipe the search index of all data """
+        if self.es.indices.exists(self.index):
+            self.es.indices.delete(self.index)

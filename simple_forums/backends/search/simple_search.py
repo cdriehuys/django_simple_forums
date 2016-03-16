@@ -31,3 +31,7 @@ class SimpleSearch(BaseSearch):
             result_set.add(thread)
 
         return result_set
+
+    def wipe(self):
+        """ Not implemented in this backend """
+        warnings.warn('wipe is not implemented in this backend')

@@ -1,3 +1,16 @@
+from simple_forums.utils import get_setting, string_to_class
+
+
+def get_search_class():
+    """ Get the search backend class """
+    backend_info = get_setting('search_backend', {})
+
+    return string_to_class(
+        backend_info.get(
+            'search_class',
+            'simple_forums.backends.search.SimpleSearch'))
+
+
 class SearchResultSet:
     """ Contains objects that are the results of a search """
 

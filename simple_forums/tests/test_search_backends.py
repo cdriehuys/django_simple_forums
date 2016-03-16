@@ -48,6 +48,14 @@ class TestBaseSearch(TestCase):
         with self.assertRaises(NotImplementedError):
             self.backend.search('test')
 
+    def test_wipe(self):
+        """ Test wiping search index.
+
+        The base search engine should raise a NotImplementedError.
+        """
+        with self.assertRaises(NotImplementedError):
+            self.backend.wipe()
+
 
 @override_settings(SIMPLE_FORUMS={'search_backend': elasticsearch_settings})
 class TestElasticSearch(TestCase):
@@ -139,15 +147,31 @@ class TestElasticSearch(TestCase):
         self.backend.add(thread2)
         self.backend.add(thread3)
 
+        self.backend.es.indices.refresh()
+
         raw_results = self.backend.search('darth vader')
         results = [thread for thread, _ in raw_results]
 
-        expected = [
-            '<Thread: %s>' % thread1,
-            '<Thread: %s>' % thread3,
-        ]
+        expected = [thread1, thread3]
 
-        self.assertQuerysetEqual(results, expected)
+        self.assertEqual(expected, results)
+
+    def test_wipe(self):
+        """ Test wiping the search index.
+
+        Objects in the search index prior to the wipe should no longer
+        be searchable.
+        """
+        thread = create_thread()
+        self.backend.add(thread)
+
+        self.backend.wipe()
+
+        with self.assertRaises(NotFoundError):
+            self.backend.es.get_source(
+                index=self.backend.index,
+                doc_type='thread',
+                id=thread.pk)
 
 
 class TestSimpleSearch(TestCase):
@@ -242,4 +266,17 @@ class TestSimpleSearch(TestCase):
 
         self.assertEqual(
             'remove is not implemented in this backend',
+            context.warning.args[-1])
+
+    def test_wipe(self):
+        """ Test wiping the search index.
+
+        This method should raise a warning that the behavior is not
+        implemented.
+        """
+        with self.assertWarns(Warning) as context:
+            self.backend.wipe()
+
+        self.assertEqual(
+            'wipe is not implemented in this backend',
             context.warning.args[-1])
