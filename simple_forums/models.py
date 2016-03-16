@@ -19,7 +19,11 @@ class Message(models.Model):
 
     def get_absolute_url(self):
         """ Return the url of the message instance """
-        return '%s#%d' % (self.thread.get_absolute_url, self.pk)
+        return '%s#%s' % (self.thread.get_absolute_url(), self.get_anchor())
+
+    def get_anchor(self):
+        """ Get the anchor for the message """
+        return 'm-%d' % self.pk
 
     def save(self, *args, **kwargs):
         """ Update the parent thread's 'time_last_activity' field """

@@ -58,9 +58,21 @@ class TestMessageModel(TestCase):
         """
         message = create_message()
 
-        expected = '%s#%d' % (message.thread.get_absolute_url, message.pk)
+        expected = '%s#%s' % (message.thread.get_absolute_url(),
+                              message.get_anchor())
 
         self.assertEqual(expected, message.get_absolute_url())
+
+    def test_get_anchor(self):
+        """ Test getting the anchor for the message.
+
+        The anchor should be in the format 'm-<pk>'.
+        """
+        message = create_message()
+
+        expected = 'm-%d' % message.pk
+
+        self.assertEqual(expected, message.get_anchor())
 
     def test_string_conversion(self):
         """ Test the conversion of a message instance to a string.
