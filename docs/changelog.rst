@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.0
+------
+Features
+  * Close `#12`_: Adding ids to comments so they can be linked to
+
 v1.2.0
 ------
 Features
@@ -24,6 +29,7 @@ v1.0.9
 Bug Fixes:
   * Fix `#23`_: Fixing issue where submitting a blank reply to a thread caused an error.
 
+.. _#12: https://github.com/smalls12/django_simple_forums/issues/12
 .. _#13: https://github.com/smalls12/django_simple_forums/issues/13
 .. _#18: https://github.com/smalls12/django_simple_forums/issues/18
 .. _#21: https://github.com/smalls12/django_simple_forums/issues/21

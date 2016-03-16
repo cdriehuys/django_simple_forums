@@ -197,7 +197,7 @@ class TestThreadDetailView(AuthenticationTestCase):
 
         message = thread.message_set.get()
 
-        self.assertRedirects(response, url)
+        self.assertRedirects(response, message.get_absolute_url())
         self.assertEqual(1, models.Message.objects.count())
         self.assertEqual(self.user, message.user)
         self.assertEqual(data['body'], message.body)

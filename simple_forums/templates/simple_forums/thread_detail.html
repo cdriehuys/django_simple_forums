@@ -15,12 +15,11 @@
 		{% if messages %}
 			{% for message in messages %}
 
-				<div class="post-area">
+				<div id="{{ message.get_anchor }}" class="post-area">
 
 					<div class="post-heading">
 						<h4 class="text-primary">{{ message.user }}</h4>
 						<p>{{ message.time_created }}</p>
-						<span class="hidden-xs arrow"></span>
 					</div>
 
 					<div class="post-content">
