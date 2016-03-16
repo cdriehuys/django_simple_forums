@@ -17,6 +17,10 @@ class Message(models.Model):
         """ Return the message's body """
         return self.body
 
+    def get_absolute_url(self):
+        """ Return the url of the message instance """
+        return '%s#%d' % (self.thread.get_absolute_url, self.pk)
+
     def save(self, *args, **kwargs):
         """ Update the parent thread's 'time_last_activity' field """
         if self.time_created > self.thread.time_last_activity:

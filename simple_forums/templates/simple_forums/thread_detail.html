@@ -15,7 +15,7 @@
 		{% if messages %}
 			{% for message in messages %}
 
-				<div class="post-area">
+				<div id="{{ message.pk }}" class="post-area">
 
 					<div class="post-heading">
 						<h4 class="text-primary">{{ message.user }}</h4>

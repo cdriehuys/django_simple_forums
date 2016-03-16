@@ -50,6 +50,18 @@ class TestMessageModel(TestCase):
 
         self.assertTrue(start_time <= message.time_created <= end_time)
 
+    def test_get_absolute_url(self):
+        """ Test getting the message's url.
+
+        The url should be the url of the message's parent thread with
+        a named anchor of the message's pk.
+        """
+        message = create_message()
+
+        expected = '%s#%d' % (message.thread.get_absolute_url, message.pk)
+
+        self.assertEqual(expected, message.get_absolute_url())
+
     def test_string_conversion(self):
         """ Test the conversion of a message instance to a string.
 
