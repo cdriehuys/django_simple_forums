@@ -21,4 +21,10 @@ class Command(BaseCommand):
             backend.add(thread)
             count += 1
 
-        self.stdout.write(self.style.SUCCESS("Updated %d thread(s)" % count))
+        # SUCCESS style was introduced in django 1.9
+        if hasattr(self.style, 'SUCCESS'):
+            out = self.style.SUCCESS("Updated %d thread(s)" % count)
+        else:
+            out = "Updated %d thread(s)"
+
+        self.stdout.write(out)
