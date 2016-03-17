@@ -20,7 +20,7 @@ matrix:
 
 before_install:
   # pip >= 8 dropped support for python 3.2
-  - pip install "pip<8.0.0" wheel
+  - pip install --upgrade "pip<8.0.0" wheel
 
 # install dependencies
 install:
