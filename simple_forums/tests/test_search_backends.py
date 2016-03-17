@@ -219,7 +219,7 @@ class TestSimpleSearch(TestCase):
         thread = create_thread(title='cat')
         create_thread(title='dog')
 
-        results = [thread for thread, _ in self.backend.search('cat')]
+        results = [t for t, _ in self.backend.search('cat')]
 
         self.assertEqual([thread], results)
 
