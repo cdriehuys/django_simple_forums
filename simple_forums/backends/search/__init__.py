@@ -36,5 +36,5 @@ class SearchResultSet:
 
 # Make module classes easily accessible
 from simple_forums.backends.search.base_search import BaseSearch        # noqa
-from simple_forums.backends.search.elasticsearch import ElasticSearch   # noqa
+from simple_forums.backends.search.elastic_search import ElasticSearch  # noqa
 from simple_forums.backends.search.simple_search import SimpleSearch    # noqa
