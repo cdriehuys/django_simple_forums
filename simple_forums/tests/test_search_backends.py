@@ -1,4 +1,5 @@
 import json
+import warnings
 
 from django.test import override_settings, TestCase
 
@@ -187,12 +188,14 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        with self.assertWarns(Warning) as context:
+        warnings.simplefilter('error')
+        with self.assertRaises(UserWarning) as context:
             self.backend.add(None)
+        warnings.simplefilter('default')
 
         self.assertEqual(
             'add is not implemented in this backend',
-            context.warning.args[-1])
+            context.exception.args[-1])
 
     def test_blank_search(self):
         """ Test result of searching for a blank string.
@@ -261,12 +264,14 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        with self.assertWarns(Warning) as context:
+        warnings.simplefilter('error')
+        with self.assertRaises(UserWarning) as context:
             self.backend.remove(None)
+        warnings.simplefilter('default')
 
         self.assertEqual(
             'remove is not implemented in this backend',
-            context.warning.args[-1])
+            context.exception.args[-1])
 
     def test_wipe(self):
         """ Test wiping the search index.
@@ -274,9 +279,11 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        with self.assertWarns(Warning) as context:
+        warnings.simplefilter('error')
+        with self.assertRaises(UserWarning) as context:
             self.backend.wipe()
+        warnings.simplefilter('default')
 
         self.assertEqual(
             'wipe is not implemented in this backend',
-            context.warning.args[-1])
+            context.exception.args[-1])
