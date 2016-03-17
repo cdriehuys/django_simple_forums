@@ -25,6 +25,6 @@ class Command(BaseCommand):
         if hasattr(self.style, 'SUCCESS'):
             out = self.style.SUCCESS("Updated %d thread(s)" % count)
         else:
-            out = "Updated %d thread(s)"
+            out = "Updated %d thread(s)" % count
 
         self.stdout.write(out)
