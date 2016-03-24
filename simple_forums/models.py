@@ -17,6 +17,14 @@ class Message(models.Model):
         """ Return the message's body """
         return self.body
 
+    def get_absolute_url(self):
+        """ Return the url of the message instance """
+        return '%s#%s' % (self.thread.get_absolute_url(), self.get_anchor())
+
+    def get_anchor(self):
+        """ Get the anchor for the message """
+        return 'm-%d' % self.pk
+
     def get_title(self):
         """ Return the parent thread's title """
         return self.thread.get_title()

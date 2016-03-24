@@ -87,9 +87,9 @@ class ThreadDetailView(generic.DetailView):
         form = forms.ThreadReplyForm(request.POST)
 
         if form.is_valid():
-            form.save(request.user, self.object)
+            message = form.save(request.user, self.object)
 
-            return HttpResponseRedirect(thread_detail_url(thread=self.object))
+            return HttpResponseRedirect(message.get_absolute_url())
 
         context = self.get_context_data()
         context['reply_form'] = form

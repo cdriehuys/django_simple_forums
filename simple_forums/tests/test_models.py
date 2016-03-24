@@ -50,6 +50,30 @@ class TestMessageModel(TestCase):
 
         self.assertTrue(start_time <= message.time_created <= end_time)
 
+    def test_get_absolute_url(self):
+        """ Test getting the message's url.
+
+        The url should be the url of the message's parent thread with
+        a named anchor of the message's pk.
+        """
+        message = create_message()
+
+        expected = '%s#%s' % (message.thread.get_absolute_url(),
+                              message.get_anchor())
+
+        self.assertEqual(expected, message.get_absolute_url())
+
+    def test_get_anchor(self):
+        """ Test getting the anchor for the message.
+
+        The anchor should be in the format 'm-<pk>'.
+        """
+        message = create_message()
+
+        expected = 'm-%d' % message.pk
+
+        self.assertEqual(expected, message.get_anchor())
+
     def test_get_title(self):
         """ Test getting the message's title.
 
