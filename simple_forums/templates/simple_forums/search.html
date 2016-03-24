@@ -17,6 +17,9 @@
 
             <div class="search-result">
                 <a href="{{ result.get_absolute_url }}">{{ result.get_title }}</a>
+                <p class="search-description">
+                    {{ result.get_search_description }}
+                </p>
             </div>
 
         {% empty %}
