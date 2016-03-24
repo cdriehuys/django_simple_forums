@@ -8,7 +8,7 @@ from elasticsearch.exceptions import NotFoundError
 
 from simple_forums import models
 from simple_forums.backends import search
-from simple_forums.tests.testing_utils import create_thread
+from simple_forums.tests.testing_utils import create_message, create_thread
 
 
 elasticsearch_settings = {
@@ -94,6 +94,32 @@ class TestElasticSearch(TestCase):
 
         self.assertJSONEqual(expected_json, source_json)
 
+    def test_add_messages(self):
+        """ Test adding a thread that has messages associated with it.
+
+        Adding a message that has messages associated with it should
+        also add those messages to the search index.
+        """
+        thread = create_thread()
+        message = create_message(thread=thread)
+
+        self.backend.add(thread)
+
+        es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+
+        source = es.get_source(
+            index=self.backend.index,
+            doc_type='message',
+            id=message.pk)
+        source_json = json.dumps(source)
+
+        expected = {
+            'body': message.body,
+        }
+        expected_json = json.dumps(expected)
+
+        self.assertJSONEqual(expected_json, source_json)
+
     def test_add_non_thread(self):
         """ Test adding a non-thread object.
 
@@ -134,6 +160,27 @@ class TestElasticSearch(TestCase):
         with self.assertRaises(NotFoundError):
             self.backend.remove(thread)
 
+    def test_remove_message(self):
+        """ Test removing a thread with messages.
+
+        If a thread has messages assocated with it, those messages
+        should be removed from the search backend when the thread
+        instance is removed.
+        """
+        thread = create_thread()
+        message = create_message(thread=thread)
+
+        self.backend.add(thread)
+        self.backend.remove(thread)
+
+        es = Elasticsearch([{'host': 'localhost', 'port': 9200}])
+
+        with self.assertRaises(NotFoundError):
+            es.get_source(
+                index=self.backend.index,
+                doc_type='message',
+                id=message.pk)
+
     def test_search(self):
         """ Test searching for a term.
 
@@ -154,6 +201,26 @@ class TestElasticSearch(TestCase):
         results = [thread for thread, _ in raw_results]
 
         expected = [thread1, thread3]
+
+        self.assertEqual(expected, results)
+
+    def test_search_messages(self):
+        """ Test searching with messages.
+
+        Indexed messages should be included in search results along with
+        the indexed threads.
+        """
+        thread = create_thread(title='Darth Maul')
+        message = create_message(thread=thread, body='Darth Vader')
+
+        self.backend.add(thread)
+
+        self.backend.es.indices.refresh()
+
+        raw_results = self.backend.search('Darth Vader')
+        results = [thread for thread, _ in raw_results]
+
+        expected = [message, thread]
 
         self.assertEqual(expected, results)
 
