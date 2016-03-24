@@ -85,7 +85,7 @@ class ElasticSearch(BaseSearch):
             index=self.index,
             doc_type='message,thread',
             body=body)
-        
+
         hits = search_results.get('hits').get('hits')
 
         result_set = SearchResultSet()
