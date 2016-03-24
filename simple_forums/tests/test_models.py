@@ -50,6 +50,15 @@ class TestMessageModel(TestCase):
 
         self.assertTrue(start_time <= message.time_created <= end_time)
 
+    def test_get_title(self):
+        """ Test getting the message's title.
+
+        The message's title should be its parent thread's title.
+        """
+        message = create_message()
+
+        self.assertEqual(message.thread.get_title(), message.get_title())
+
     def test_string_conversion(self):
         """ Test the conversion of a message instance to a string.
 
@@ -122,6 +131,15 @@ class TestThreadModel(TestCase):
         url = reverse('thread-detail', kwargs=url_kwargs)
 
         self.assertEqual(url, thread.get_absolute_url())
+
+    def test_get_title(self):
+        """ Test getting the thread's title.
+
+        This method should return the title field of the thread.
+        """
+        thread = create_thread()
+
+        self.assertEqual(thread.title, thread.get_title())
 
     def test_num_replies_with_no_replies(self):
         """ Test retrieving the number of replies for a thread.

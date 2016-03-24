@@ -47,7 +47,7 @@ class SearchView(generic.View):
 
         results = backend.search(self.get_query())
 
-        return [thread for thread, _ in results]
+        return [result for result, _ in results]
 
 
 class ThreadCreateView(LoginRequiredMixin, generic.edit.FormView):
