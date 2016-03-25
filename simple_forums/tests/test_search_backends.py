@@ -218,7 +218,7 @@ class TestElasticSearch(TestCase):
         self.backend.es.indices.refresh()
 
         raw_results = self.backend.search('Darth Vader')
-        results = [thread for thread, _ in raw_results]
+        results = [t for t, _ in raw_results]
 
         expected = [message, thread]
 
