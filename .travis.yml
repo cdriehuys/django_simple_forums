@@ -5,6 +5,9 @@ python:
   - "3.4"
   - "3.5"
 
+services:
+  - elasticsearch
+
 env:
   matrix:
     - DJANGO="django >=1.8,<1.9"
@@ -17,15 +20,17 @@ matrix:
 
 before_install:
   # pip >= 8 dropped support for python 3.2
-  - pip install "pip<8.0.0" wheel
+  - pip install --upgrade "pip<8.0.0" wheel
 
 # install dependencies
 install:
   - pip install "$DJANGO"
-  - pip install bleach codecov flake8 markdown pymdown-extensions
+  - pip install bleach codecov elasticsearch flake8 markdown pymdown-extensions
 
 # lint before testing
 before_script:
+  # allow elasticsearch to get setup
+  - sleep 10
   - flake8 .
 
 # run tests

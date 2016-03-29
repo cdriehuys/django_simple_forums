@@ -1,10 +1,8 @@
-import importlib
-
 from django import template
 from django.core.urlresolvers import reverse
 from django.template.defaultfilters import urlencode
 
-from simple_forums.utils import get_setting
+from simple_forums.utils import get_setting, string_to_class
 
 
 register = template.Library()
@@ -16,9 +14,7 @@ def get_renderer_class():
         'markup_renderer',
         'simple_forums.markup_renderers.TextRenderer')
 
-    module, class_name = render_string.rsplit('.', 1)
-
-    return getattr(importlib.import_module(module), class_name)
+    return string_to_class(render_string)
 
 
 @register.simple_tag(takes_context=True)

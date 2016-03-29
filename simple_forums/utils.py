@@ -1,3 +1,5 @@
+import importlib
+
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
@@ -16,6 +18,13 @@ def get_setting(setting_name, default=None):
         return settings_dict.get(setting_name, default)
 
     return default
+
+
+def string_to_class(string):
+    """ Return the class represented by the given string """
+    module, class_name = string.rsplit('.', 1)
+
+    return getattr(importlib.import_module(module), class_name)
 
 
 def thread_detail_url(pk=None, thread=None):

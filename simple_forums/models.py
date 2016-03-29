@@ -25,6 +25,14 @@ class Message(models.Model):
         """ Get the anchor for the message """
         return 'm-%d' % self.pk
 
+    def get_search_description(self):
+        """ Return description of message for search results """
+        return '%s said: %s' % (self.user, self.body)
+
+    def get_title(self):
+        """ Return the parent thread's title """
+        return self.thread.get_title()
+
     def save(self, *args, **kwargs):
         """ Update the parent thread's 'time_last_activity' field """
         if self.time_created > self.thread.time_last_activity:
@@ -64,6 +72,17 @@ class Thread(models.Model):
         }
 
         return reverse('thread-detail', kwargs=url_kwargs)
+
+    def get_search_description(self):
+        """ Return description of thread for search results """
+        if self.message_set.exists():
+            return self.message_set.first().body
+
+        return 'There are no replies to this thread.'
+
+    def get_title(self):
+        """ Return the thread's title """
+        return self.title
 
     @property
     def num_replies(self):
