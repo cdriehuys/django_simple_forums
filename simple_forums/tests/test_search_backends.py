@@ -249,21 +249,6 @@ class TestSimpleSearch(TestCase):
         """ Initialize a backend for each test """
         self.backend = search.SimpleSearch()
 
-    def test_add(self):
-        """ Test adding an object to the search index.
-
-        This method should raise a warning that the behavior is not
-        implemented.
-        """
-        warnings.simplefilter('error')
-        with self.assertRaises(UserWarning) as context:
-            self.backend.add(None)
-        warnings.simplefilter('default')
-
-        self.assertEqual(
-            'add is not implemented in this backend',
-            context.exception.args[-1])
-
     def test_blank_search(self):
         """ Test result of searching for a blank string.
 
@@ -324,33 +309,3 @@ class TestSimpleSearch(TestCase):
         expected = [t1, t2]
 
         self.assertEqual(expected, results)
-
-    def test_remove(self):
-        """ Test removing an object from the search index.
-
-        This method should raise a warning that the behavior is not
-        implemented.
-        """
-        warnings.simplefilter('error')
-        with self.assertRaises(UserWarning) as context:
-            self.backend.remove(None)
-        warnings.simplefilter('default')
-
-        self.assertEqual(
-            'remove is not implemented in this backend',
-            context.exception.args[-1])
-
-    def test_wipe(self):
-        """ Test wiping the search index.
-
-        This method should raise a warning that the behavior is not
-        implemented.
-        """
-        warnings.simplefilter('error')
-        with self.assertRaises(UserWarning) as context:
-            self.backend.wipe()
-        warnings.simplefilter('default')
-
-        self.assertEqual(
-            'wipe is not implemented in this backend',
-            context.exception.args[-1])

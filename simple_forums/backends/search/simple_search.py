@@ -1,5 +1,4 @@
 from functools import reduce
-import warnings
 
 from django.db.models import Q
 
@@ -12,11 +11,9 @@ class SimpleSearch(BaseSearch):
 
     def add(self, object):
         """ Not implemented in this backend """
-        warnings.warn('add is not implemented in this backend')
 
     def remove(self, object):
         """ Not implemented in this backend """
-        warnings.warn('remove is not implemented in this backend')
 
     def search(self, query_string):
         """ Search all thread instances for the given query string """
@@ -34,4 +31,3 @@ class SimpleSearch(BaseSearch):
 
     def wipe(self):
         """ Not implemented in this backend """
-        warnings.warn('wipe is not implemented in this backend')
