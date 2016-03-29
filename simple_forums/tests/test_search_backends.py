@@ -255,7 +255,7 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        warnings.simplefilter('error')
+        warnings.simplefilter('always')
         with self.assertRaises(UserWarning) as context:
             self.backend.add(None)
         warnings.simplefilter('default')
@@ -331,7 +331,7 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        warnings.simplefilter('error')
+        warnings.simplefilter('always')
         with self.assertRaises(UserWarning) as context:
             self.backend.remove(None)
         warnings.simplefilter('default')
@@ -346,7 +346,7 @@ class TestSimpleSearch(TestCase):
         This method should raise a warning that the behavior is not
         implemented.
         """
-        warnings.simplefilter('error')
+        warnings.simplefilter('always')
         with self.assertRaises(UserWarning) as context:
             self.backend.wipe()
         warnings.simplefilter('default')

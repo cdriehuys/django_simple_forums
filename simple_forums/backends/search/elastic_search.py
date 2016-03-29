@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 from elasticsearch import Elasticsearch
 
 from simple_forums import models
