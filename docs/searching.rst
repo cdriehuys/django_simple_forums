@@ -17,6 +17,8 @@ Elasticsearch
 -------------
 Class: ``simple_forums.backends.search.ElasticSearch``
 
+**Requires Installation of the** `elasticsearch-py`_ **package.**
+
 This backend connects to an elasticsearch server using the given credentials and uses it to perform searches. It is much more powerful than the Simple Search backend because it has the ability to search through replies to threads rather than just the thread titles.
 
 Configuration Options:
@@ -28,3 +30,4 @@ Configuration Options:
 
 
 .. _elasticsearch: https://www.elastic.co/
+.. _elasticsearch-py: https://www.elastic.co/guide/en/elasticsearch/client/python-api/current/index.html
