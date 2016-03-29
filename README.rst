@@ -2,13 +2,13 @@
 Simple Forums
 =============
 
-.. image:: https://img.shields.io/travis/smalls12/django_simple_forums.svg
+.. image:: https://img.shields.io/travis/smalls12/django_simple_forums/master.svg
    :target: https://travis-ci.org/smalls12/django_simple_forums
 
-.. image:: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums.svg
+.. image:: https://img.shields.io/codecov/c/github/smalls12/django_simple_forums/master.svg
    :target: https://codecov.io/github/smalls12/django_simple_forums
 
-.. image:: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums.svg
+.. image:: https://img.shields.io/scrutinizer/g/smalls12/django_simple_forums/master.svg
    :target: https://scrutinizer-ci.com/g/smalls12/django_simple_forums/
 
 .. image:: https://img.shields.io/pypi/v/django_simple_forums.svg
