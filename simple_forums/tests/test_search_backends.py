@@ -1,5 +1,4 @@
 import json
-import warnings
 
 from django.test import override_settings, TestCase
 
