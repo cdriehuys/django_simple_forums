@@ -55,6 +55,7 @@ INSTALLED_APPS = (
 
     # Custom Apps
     'simple_forums',
+    'simple_forums.notifications',
 )
 
 
