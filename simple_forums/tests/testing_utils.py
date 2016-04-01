@@ -89,7 +89,7 @@ def create_topic(**kwargs):
     return models.Topic.objects.create(**topic_kwargs)
 
 
-def get_test_user(username='test', password='test'):
+def get_test_user(username='test', password='test', email=None):
     """ Get or create user for testing purposes """
 
     if get_user_model().objects.filter(username=username).exists():
@@ -97,4 +97,5 @@ def get_test_user(username='test', password='test'):
     
     return get_user_model().objects.create_user(
         username=username,
-        password=password)
+        password=password,
+        email=email)
