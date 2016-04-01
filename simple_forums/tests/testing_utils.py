@@ -94,7 +94,7 @@ def get_test_user(username='test', password='test', email=None):
 
     if get_user_model().objects.filter(username=username).exists():
         return get_user_model().objects.get(username=username)
-    
+
     return get_user_model().objects.create_user(
         username=username,
         password=password,

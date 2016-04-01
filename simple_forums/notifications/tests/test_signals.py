@@ -51,7 +51,7 @@ class TestThreadNotificationSignal(TestCase, MailTestMixin):
         user = get_test_user()
         thread = create_thread()
         message = create_message(thread=thread)
-        notification = models.ThreadNotification.objects.create(
+        models.ThreadNotification.objects.create(
             user=user,
             thread=thread)
 
