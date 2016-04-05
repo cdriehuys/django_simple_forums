@@ -69,3 +69,5 @@ STATIC_URL = '/static/'
 
 
 LOGIN_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
