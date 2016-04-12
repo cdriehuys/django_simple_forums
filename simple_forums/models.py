@@ -115,6 +115,13 @@ class Topic(models.Model):
     description = models.CharField(max_length=200)
     slug = models.SlugField()
 
+    # field used by django-admin-sortable for ordering topics
+    topic_order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ('topic_order',)
+
     def __str__(self):
         """ Return the topic's title """
         return self.title
