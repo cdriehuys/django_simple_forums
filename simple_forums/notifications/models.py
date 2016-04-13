@@ -1,8 +1,12 @@
 from django.conf import settings
 from django.core import mail
 from django.db import models
-from django.template.exceptions import TemplateDoesNotExist
 from django.template.loader import get_template
+
+try:
+    from django.template.exceptions import TemplateDoesNotExist
+except ImportError:
+    from django.template.base import TemplateDoesNotExist
 
 
 class ThreadNotification(models.Model):
