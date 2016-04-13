@@ -32,6 +32,7 @@ setup(
     install_requires=[
         'bleach',
         'django',
+        'django-admin-sortable',
         'markdown',
         'pymdown-extensions',
     ],

@@ -53,6 +53,9 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'django.contrib.admin',
 
+    # Third party apps
+    'adminsortable',
+
     # Custom Apps
     'simple_forums',
     'simple_forums.notifications',

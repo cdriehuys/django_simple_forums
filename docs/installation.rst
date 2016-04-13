@@ -20,7 +20,7 @@ In ``settings.py``::
     INSTALLED_APPS = [
         ...
         # default django apps
-
+        'adminsortable',
         'simple_forums',
         ...
     ]

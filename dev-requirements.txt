@@ -7,3 +7,4 @@ pymdown-extensions
 
 # Version Constrained Packages
 django >=1.8,<1.10
+django-admin-sortable >=1.7.1,<2.1

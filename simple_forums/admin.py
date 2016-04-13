@@ -1,5 +1,7 @@
 from django.contrib import admin
 
+from adminsortable.admin import SortableAdmin
+
 from simple_forums import models
 
 ###########
@@ -50,7 +52,7 @@ class ThreadAdmin(admin.ModelAdmin):
     inlines = (MessageInline,)
 
 
-class TopicAdmin(admin.ModelAdmin):
+class TopicAdmin(SortableAdmin):
     """ Admin for the topic model """
 
     fields = ('title', 'description',)
