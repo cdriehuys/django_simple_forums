@@ -315,15 +315,6 @@ class TestTopicModel(TestCase):
         self.assertEqual(title, topic.title)
         self.assertEqual(description, topic.description)
 
-    def test_order_default(self):
-        """ Test default order value.
-
-        By default, the order value should be set to 0.
-        """
-        topic = create_topic()
-
-        self.assertEqual(0, topic.topic_order)
-
     def test_slug_generation(self):
         """ Test the automatic generation of a url slug.
 
