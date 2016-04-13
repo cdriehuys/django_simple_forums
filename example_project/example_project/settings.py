@@ -131,6 +131,9 @@ STATIC_URL = '/static/'
 LOGIN_REDIRECT_URL = '/forums/'
 
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
 SIMPLE_FORUMS = {
     'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
     'search_backend': {
