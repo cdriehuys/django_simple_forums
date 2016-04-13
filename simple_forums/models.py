@@ -4,6 +4,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.text import slugify
 
+from adminsortable.models import SortableMixin
+
 
 class Message(models.Model):
     """ A message with some text """
@@ -108,12 +110,19 @@ class Thread(models.Model):
         return super(Thread, self).save(*args, **kwargs)
 
 
-class Topic(models.Model):
+class Topic(SortableMixin):
     """ A topic model to hold threads """
 
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     slug = models.SlugField()
+
+    # field used by django-admin-sortable for ordering topics
+    topic_order = models.PositiveIntegerField(
+        default=0, editable=False, db_index=True)
+
+    class Meta:
+        ordering = ('topic_order',)
 
     def __str__(self):
         """ Return the topic's title """

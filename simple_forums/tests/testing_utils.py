@@ -19,12 +19,7 @@ def create_message(**kwargs):
         raise ValueError("Received unexpected kwargs: %s" % kwargs)
 
     if user is None:
-        if get_user_model().objects.filter(username='test').exists():
-            user = get_user_model().objects.get(username='test')
-        else:
-            user = get_user_model().objects.create_user(
-                username='test',
-                password='test')
+        user = get_test_user()
 
     if thread is None:
         thread = create_thread()
@@ -92,3 +87,15 @@ def create_topic(**kwargs):
         description=description)
 
     return models.Topic.objects.create(**topic_kwargs)
+
+
+def get_test_user(username='test', password='test', email=None):
+    """ Get or create user for testing purposes """
+
+    if get_user_model().objects.filter(username=username).exists():
+        return get_user_model().objects.get(username=username)
+
+    return get_user_model().objects.create_user(
+        username=username,
+        password=password,
+        email=email)

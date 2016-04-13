@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Third party apps
+    'adminsortable',
     'simple_forums',
 
     # Your custom apps here

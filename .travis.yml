@@ -25,7 +25,8 @@ before_install:
 # install dependencies
 install:
   - pip install "$DJANGO"
-  - pip install bleach codecov elasticsearch flake8 markdown pymdown-extensions
+  - pip install bleach codecov django-admin-sortable elasticsearch flake8
+  - pip install markdown pymdown-extensions
 
 # lint before testing
 before_script:
