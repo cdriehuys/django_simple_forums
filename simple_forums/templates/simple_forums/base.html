@@ -38,6 +38,16 @@
     </header>
 
     <main>
+        {% if messages %}
+            <h3>Messages:</h3>
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+
         {% block content %}{% endblock %}
     </main>
 
