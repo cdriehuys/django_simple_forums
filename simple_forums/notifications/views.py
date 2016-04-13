@@ -28,10 +28,13 @@ class ThreadNotificationCreate(LoginRequiredMixin, View):
 
     def _unfollow_thread(self, user, thread):
         """ Delete notifications for the given user and thread """
-        models.ThreadNotification.objects.filter(
-            user=user, thread=thread).delete()
-        messages.success(
-            self.request, "You are no longer following '%s'" % thread)
+        qs = models.ThreadNotification.objects.filter(
+            user=user, thread=thread)
+
+        if qs.exists():
+            qs.delete()
+            messages.success(
+                self.request, "You are no longer following '%s'" % thread)
 
     def post(self, request, *args, **kwargs):
         """ Create a new thread notification """
