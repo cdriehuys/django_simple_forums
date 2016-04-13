@@ -22,7 +22,23 @@ In ``settings.py``::
         # default django apps
 
         'simple_forums',
+
+        # If you want email notification functionality, add the following:
+        'simple_forums.notifications',
         ...
+    ]
+
+If you would like an easy way to keep track of installed apps within your templates, add the following context processor (in ``settings.py``)::
+
+    TEMPLATES = [
+        {
+            'OPTIONS': {
+                'context_processors': [
+                    # other context processors
+                    'simple_forums.context_processors.installed_apps',
+                ],
+            },
+        },
     ]
 
 In ``urls.py``::

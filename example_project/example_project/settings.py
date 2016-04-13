@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # Third party apps
     'simple_forums',
+    'simple_forums.notifications',
 
     # Your custom apps here
 ]
@@ -68,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
