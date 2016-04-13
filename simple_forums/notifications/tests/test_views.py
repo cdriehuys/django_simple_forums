@@ -44,7 +44,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
         create_thread_notification(
             user=self.user, thread=thread)
 
-        data = {'follow': False}
+        data = {}
 
         success_url = thread_detail_url(thread=thread)
 
@@ -67,7 +67,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
         create_thread_notification(
             user=self.user, thread=thread)
 
-        data = {'follow': True}
+        data = {'follow': 'on'}
 
         success_url = thread_detail_url(thread=thread)
 
@@ -92,20 +92,6 @@ class TestThreadNotificationView(AuthenticationTestCase):
 
         self.assertEqual(405, response.status_code)
 
-    def test_post_empty(self):
-        """ Test an empty post request.
-
-        An empty post request should return a status code of 400.
-        """
-        self.login()
-
-        thread = create_thread()
-
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
-        response = self.client.post(url, {})
-
-        self.assertEqual(400, response.status_code)
-
     def test_post_unauthenticated(self):
         """ Test sending an unauthenticated POST request.
 
@@ -128,7 +114,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
         self.login()
 
         thread = create_thread()
-        data = {'follow': True}
+        data = {'follow': 'on'}
         success_url = thread_detail_url(thread=thread)
 
         url = reverse('follow-thread', kwargs={'pk': thread.pk})

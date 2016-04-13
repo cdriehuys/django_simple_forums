@@ -1,4 +1,5 @@
-from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.contrib import messages
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import View
 
@@ -11,14 +12,6 @@ from simple_forums.utils import thread_detail_url
 class ThreadNotificationCreate(LoginRequiredMixin, View):
 
     raise_exception = True
-    required_fields = ['follow']
-
-    def _check_required_fields(self):
-        """ Make sure all required fields are present """
-        for field in self.required_fields:
-            if field not in self.request.POST:
-                raise ValueError(
-                    "The '%s' field is required." % field)
 
     def _follow_thread(self, user, thread):
         """ Create thread notification if it doesn't exist """
@@ -27,33 +20,29 @@ class ThreadNotificationCreate(LoginRequiredMixin, View):
 
         if not duplicate:
             models.ThreadNotification.objects.create(user=user, thread=thread)
+            messages.success(
+                self.request, "You are now following '%s'" % thread)
+        else:
+            messages.warning(
+                self.request, "You are already following '%s'" % thread)
 
     def _unfollow_thread(self, user, thread):
         """ Delete notifications for the given user and thread """
         models.ThreadNotification.objects.filter(
             user=user, thread=thread).delete()
+        messages.success(
+            self.request, "You are no longer following '%s'" % thread)
 
     def post(self, request, *args, **kwargs):
         """ Create a new thread notification """
         self.request = request
-        self.args = args
-        self.kwargs = kwargs
 
-        try:
-            self._check_required_fields()
-        except ValueError as e:
-            return HttpResponseBadRequest(str(e))
-
-        follow = self.request.POST.get('follow').lower()
-
-        if follow not in ['true', 'false']:
-            return HttpResponseBadRequest(
-                "'follow' must be either 'true' or 'false'")
+        follow = self.request.POST.get('follow', None)
 
         pk = kwargs.get('pk')
         thread = get_object_or_404(forum_models.Thread, pk=pk)
 
-        if follow == 'true':
+        if follow:
             self._follow_thread(request.user, thread)
         else:
             self._unfollow_thread(request.user, thread)

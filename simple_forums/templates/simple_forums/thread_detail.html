@@ -11,6 +11,14 @@
 
 	<hr />
 
+	<form id="follow-form" action="{% url 'follow-thread' thread.pk %}" method="post">
+
+		{% csrf_token %}
+
+		<input type="checkbox" id="check-follow" name="follow" /> <label>Follow Thread</label><br />
+		<button type="submit">Update Preferences</button>
+	</form>
+
 	{% with thread.message_set.all as messages %}
 		{% if messages %}
 			{% for message in messages %}
