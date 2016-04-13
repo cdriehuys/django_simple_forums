@@ -29,8 +29,8 @@ class AuthenticationTestCase(TestCase):
             password=self.PASSWORD)
 
 
-class TestCreateThreadNotificationListView(AuthenticationTestCase):
-    """ Test view used to list/create new thread notifications """
+class TestThreadNotificationView(AuthenticationTestCase):
+    """ Test view used to create/destroy new thread notifications """
 
     def test_delete(self):
         """ Test unfollowing a thread.

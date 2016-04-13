@@ -5,12 +5,8 @@ from django.views import generic
 
 from simple_forums import forms, models
 from simple_forums.backends.search import get_search_class
+from simple_forums.mixins import LoginRequiredMixin
 from simple_forums.utils import thread_detail_url
-
-try:
-    from django.contrib.auth.mixins import LoginRequiredMixin
-except ImportError:
-    from simple_forums.compatability.mixins import LoginRequiredMixin
 
 
 class SearchView(generic.View):

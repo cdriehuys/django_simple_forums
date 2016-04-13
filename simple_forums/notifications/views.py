@@ -3,13 +3,9 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import View
 
 from simple_forums import models as forum_models
+from simple_forums.mixins import LoginRequiredMixin
 from simple_forums.notifications import models
 from simple_forums.utils import thread_detail_url
-
-try:
-    from django.contrib.auth.mixins import LoginRequiredMixin
-except ImportError:
-    from simple_forums.compatability.mixins import LoginRequiredMixin
 
 
 class ThreadNotificationCreate(LoginRequiredMixin, View):
