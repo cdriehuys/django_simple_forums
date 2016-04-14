@@ -1,6 +1,12 @@
 from django.conf import settings
 from django.core import mail
 from django.db import models
+from django.template.loader import get_template
+
+try:
+    from django.template.exceptions import TemplateDoesNotExist
+except ImportError:
+    from django.template.base import TemplateDoesNotExist
 
 
 class ThreadNotification(models.Model):
@@ -14,6 +20,30 @@ class ThreadNotification(models.Model):
         return 'Notify %s of changes to thread #%d (%s)' % (
             self.user.username, self.thread.id, self.thread)
 
+    def _email_context(self):
+        """ Get context used for sending emails """
+        return {}
+
+    @staticmethod
+    def _full_template_name(name):
+        """ Return a full template name """
+        return 'simple_forums/notifications/emails/%s' % name
+
+    def load_templates(self):
+        """ Load templates for notification email """
+        plain_temp = get_template(
+            self._full_template_name('thread_update.txt'))
+        plain = plain_temp.render(self._email_context())
+
+        try:
+            html_temp = get_template(
+                self._full_template_name('thread_update.html'))
+            html = html_temp.render(self._email_context())
+        except TemplateDoesNotExist:
+            html = None
+
+        return (plain, html)
+
     def send_notification(self, message):
         """ Notify user that the given message has been posted """
         subject = 'Thread Updated'
@@ -21,4 +51,4 @@ class ThreadNotification(models.Model):
 
         mail.send_mail(
             subject, message, 'no-reply@example.com',
-            (self.user.email,))
+            (self.user.email,), html_message=None)

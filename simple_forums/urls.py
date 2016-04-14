@@ -1,4 +1,5 @@
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.core.urlresolvers import reverse_lazy
 
@@ -22,12 +23,14 @@ urlpatterns = [
         name='login'),
 
     url(r'^logout/$', auth_views.logout,
-        {
-            'next_page': reverse_lazy('topic-list'),
-        },
+        {'next_page': reverse_lazy('topic-list')},
         name='logout'),
 
     url(r'^new/$', views.ThreadCreateView.as_view(), name='thread-create'),
 
     url(r'^search/$', views.SearchView.as_view(), name='search'),
 ]
+
+if 'simple_forums.notifications' in settings.INSTALLED_APPS:
+    urlpatterns.append(
+        url(r'notifications', include('simple_forums.notifications.urls')))

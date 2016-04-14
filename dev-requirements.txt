@@ -4,6 +4,9 @@ bumpversion
 flake8
 markdown
 pymdown-extensions
+sphinx
+sphinx-autobuild
+sphinx-rtd-theme
 
 # Version Constrained Packages
 django >=1.8,<1.10

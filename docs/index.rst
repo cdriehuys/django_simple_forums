@@ -14,6 +14,7 @@ Contents
    configuration
    templates
    searching
+   notifications
 
 
 .. include:: changelog.rst

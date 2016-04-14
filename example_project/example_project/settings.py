@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # Third party apps
     'adminsortable',
     'simple_forums',
+    'simple_forums.notifications',
 
     # Your custom apps here
 ]
@@ -69,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
@@ -128,6 +130,9 @@ STATIC_URL = '/static/'
 
 
 LOGIN_REDIRECT_URL = '/forums/'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 SIMPLE_FORUMS = {

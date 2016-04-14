@@ -7,6 +7,7 @@ Features
   * Close `#12`_: Adding ids to comments so they can be linked to
   * Close `#28`_: Using django-admin-sortable to allow for re-ordering of topics in the admin interface
   * Close `#29`_: Adding the option to use elasticsearch for searching
+  * Close `#32`_: Adding email notification system.
 
 v1.2.0
 ------
@@ -40,3 +41,4 @@ Bug Fixes:
 .. _#25: https://github.com/smalls12/django_simple_forums/issues/25
 .. _#28: https://github.com/smalls12/django_simple_forums/issues/28
 .. _#29: https://github.com/smalls12/django_simple_forums/issues/29
+.. _#32: https://github.com/smalls12/django_simple_forums/issues/32

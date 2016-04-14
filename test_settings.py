@@ -27,7 +27,8 @@ TEMPLATES = [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages'
+                'django.contrib.messages.context_processors.messages',
+                'simple_forums.context_processors.installed_apps',
             ],
         },
     },
@@ -72,3 +73,5 @@ STATIC_URL = '/static/'
 
 
 LOGIN_URL = '/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

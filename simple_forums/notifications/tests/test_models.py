@@ -2,6 +2,8 @@ from django.core import mail
 from django.test import TestCase
 
 from simple_forums.notifications import models
+from simple_forums.notifications.testing_utils import (
+    create_thread_notification)
 from simple_forums.tests.testing_utils import (
     create_message, create_thread, get_test_user)
 
@@ -25,6 +27,29 @@ class TestThreadNotificationModel(TestCase):
         self.assertEqual(1, models.ThreadNotification.objects.count())
         self.assertEqual(user, notification.user)
         self.assertEqual(thread, notification.thread)
+
+    def test_email_context(self):
+        """ Test getting the context used for emails.
+
+        It should return a dictionary of the context used in the emails.
+        """
+        notification = create_thread_notification()
+
+        expected = {}
+
+        self.assertEqual(expected, notification._email_context())
+
+    def test_load_email_templates(self):
+        """ Test loading email templates for notifications.
+
+        The method should find plaintext and html formats for the email.
+        """
+        notification = create_thread_notification()
+
+        plain, html = notification.load_templates()
+
+        self.assertIsNotNone(plain)
+        self.assertIsNotNone(html)
 
     def test_send_notification(self):
         """ Test sending a notification email.
