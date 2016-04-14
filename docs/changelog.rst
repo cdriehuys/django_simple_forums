@@ -6,6 +6,7 @@ v1.3.0
 Features
   * Close `#12`_: Adding ids to comments so they can be linked to
   * Close `#29`_: Adding the option to use elasticsearch for searching
+  * Close `#32`_: Adding email notification system.
 
 v1.2.0
 ------
@@ -38,3 +39,4 @@ Bug Fixes:
 .. _#24: https://github.com/smalls12/django_simple_forums/issues/24
 .. _#25: https://github.com/smalls12/django_simple_forums/issues/25
 .. _#29: https://github.com/smalls12/django_simple_forums/issues/29
+.. _#32: https://github.com/smalls12/django_simple_forums/issues/32
