@@ -136,7 +136,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 SIMPLE_FORUMS = {
-    'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
+    'markup_renderer': 'simple_forums.backends.renderers.MarkdownRenderer',
     'search_backend': {
         'search_class': 'simple_forums.backends.search.ElasticSearch',
         'host': 'localhost',
