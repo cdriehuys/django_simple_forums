@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.utils.safestring import SafeText
 
-from simple_forums import markup_renderers
+from simple_forums.backends import renderers
 
 
 class TestBaseRenderer(TestCase):
@@ -9,7 +9,7 @@ class TestBaseRenderer(TestCase):
 
     def setUp(self):
         """ Create renderer for each test """
-        self.renderer = markup_renderers.BaseRenderer()
+        self.renderer = renderers.BaseRenderer()
 
     def test_render(self):
         """ Test the 'render' method.
@@ -28,7 +28,7 @@ class TestMarkdownRenderer(TestCase):
 
     def setUp(self):
         """ Create renderer for each test """
-        self.renderer = markup_renderers.MarkdownRenderer()
+        self.renderer = renderers.MarkdownRenderer()
 
     def test_basic_render(self):
         """ Test basic behavior.
@@ -72,7 +72,7 @@ class TestTextRenderer(TestCase):
 
     def setUp(self):
         """ Create renderer for each test """
-        self.renderer = markup_renderers.TextRenderer()
+        self.renderer = renderers.TextRenderer()
 
     def test_basic_render(self):
         """ Test the basic behavior of the text renderer.

@@ -4,15 +4,8 @@ from django.utils.safestring import mark_safe
 
 from markdown import markdown
 
+from simple_forums.backends.renderers import BaseRenderer
 from simple_forums.utils import get_setting
-
-
-class BaseRenderer:
-    """ Base class that all renderers are based on """
-
-    def render(self, text):
-        """ Render marked up text as html """
-        raise NotImplementedError
 
 
 class MarkdownRenderer(BaseRenderer):
@@ -68,11 +61,3 @@ class MarkdownRenderer(BaseRenderer):
             tags=self.MARKDOWN_TAGS)
 
         return mark_safe(cleaned)
-
-
-class TextRenderer(BaseRenderer):
-    """ Renders text as itself """
-
-    def render(self, text):
-        """ Return the text """
-        return text

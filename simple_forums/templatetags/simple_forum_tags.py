@@ -12,7 +12,7 @@ def get_renderer_class():
     """ Determine the renderer class from the settings file """
     render_string = get_setting(
         'markup_renderer',
-        'simple_forums.markup_renderers.TextRenderer')
+        'simple_forums.backends.renderers.TextRenderer')
 
     return string_to_class(render_string)
 
