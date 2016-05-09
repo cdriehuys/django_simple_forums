@@ -33,4 +33,4 @@ urlpatterns = [
 
 if 'simple_forums.notifications' in settings.INSTALLED_APPS:
     urlpatterns.append(
-        url(r'notifications', include('simple_forums.notifications.urls')))
+        url(r'notifications/', include('simple_forums.notifications.urls')))
