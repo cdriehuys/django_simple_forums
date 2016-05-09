@@ -11,4 +11,5 @@ def send_notifications(sender, instance, created, *args, **kwargs):
         message = instance
         thread = message.thread
         for n in models.ThreadNotification.objects.filter(thread=thread):
-            n.send_notification(message)
+            if n.user != message.user:
+                n.send_notification(message)
