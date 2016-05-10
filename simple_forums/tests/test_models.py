@@ -315,6 +315,34 @@ class TestTopicModel(TestCase):
         self.assertEqual(title, topic.title)
         self.assertEqual(description, topic.description)
 
+    def test_last_thread(self):
+        """ Test getting a topic's most recently active thread.
+
+        If a topic has multiple threads, the method should return the
+        most recently active one.
+        """
+        topic = create_topic()
+
+        # create and populate first thread
+        thread = create_thread(topic=topic)
+        create_message(thread=thread)
+
+        # create and populate second thread
+        thread2 = create_thread(topic=topic, title="thread 2")
+        create_message(thread=thread2)
+
+        self.assertEqual(thread2, topic.last_thread)
+
+    def test_last_thread_with_no_threads(self):
+        """ Test getting a topic's most recently active thread.
+
+        If there are no threads associated with a topic, then
+        'last_thread' should be None.
+        """
+        topic = create_topic()
+
+        self.assertIsNone(topic.last_thread)
+
     def test_slug_generation(self):
         """ Test the automatic generation of a url slug.
 
