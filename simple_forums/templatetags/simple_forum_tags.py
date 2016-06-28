@@ -18,20 +18,20 @@ def get_renderer_class():
 
 
 @register.simple_tag(takes_context=True)
-def login_url(context):
+def login_url(context, view_name='login'):
     """ Construct a login url that redirects to the current page. """
     request = context.get('request')
     return '%s?next=%s' % (
-        reverse('login'),
+        reverse(view_name),
         urlencode(request.path))
 
 
 @register.simple_tag(takes_context=True)
-def logout_url(context):
+def logout_url(context, view_name='logout'):
     """ Construct a logout url that redirects to the current page. """
     request = context.get('request')
     return '%s?next=%s' % (
-        reverse('logout'),
+        reverse(view_name),
         urlencode(request.path))
 
 
