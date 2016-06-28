@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.1
+------
+Features
+  * Close `#42`_: Allowing template tags to generate login/logout urls to take a view name as an optional parameter
+
 v1.3.0
 ------
 Features
@@ -42,3 +47,4 @@ Bug Fixes:
 .. _#28: https://github.com/smalls12/django_simple_forums/issues/28
 .. _#29: https://github.com/smalls12/django_simple_forums/issues/29
 .. _#32: https://github.com/smalls12/django_simple_forums/issues/32
+.. _#42: https://github.com/smalls12/django_simple_forums/issues/42
