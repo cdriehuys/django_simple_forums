@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-from elasticsearch import Elasticsearch
-
 from simple_forums import models
 from simple_forums.backends.search import BaseSearch, SearchResultSet
 
@@ -15,6 +13,8 @@ class ElasticSearch(BaseSearch):
 
         host = self.connection_info['host']
         port = self.connection_info['port']
+
+        from elasticsearch import Elasticsearch
 
         self.es = Elasticsearch([{'host': host, 'port': port}])
 
