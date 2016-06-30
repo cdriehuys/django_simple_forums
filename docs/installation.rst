@@ -9,7 +9,7 @@ Download
 --------
 
 The easiest way to install simple forums is as a python package through pip::
-    
+
     $ pip install django-simple-forums
 
 Installing
@@ -48,6 +48,21 @@ In ``urls.py``::
         url(r'^forums/', include('simple_forums.urls')),
         ...
     ]
+
+Note About Including URLs
+-------------------------
+
+If you don't give the app a namespace (like ``include('simple_forums.urls', namespace='forum')``), then you must add the namespace ``simple-forums`` when you reference URLs. Example::
+
+    # In a template file
+
+    {% url 'simple-forums:index' %}
+
+
+    # In a .py file
+
+    reverse('simple-forums:index')
+
 
 Post-Installation
 =================

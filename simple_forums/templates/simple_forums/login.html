@@ -16,10 +16,10 @@
         {% endif %}
     {% endif %}
 
-    <form method="post" action="{% url 'login' %}">
+    <form method="post" action="{% url 'simple-forums:login' %}">
 
         {% csrf_token %}
-    
+
         <table>
         <tr>
             <td>{{ form.username.label_tag }}</td>

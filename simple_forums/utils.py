@@ -46,7 +46,7 @@ def thread_detail_url(pk=None, thread=None):
         'thread_slug': thread.slug,
     }
 
-    return reverse('thread-detail', kwargs=kwargs)
+    return reverse('simple-forums:thread-detail', kwargs=kwargs)
 
 
 def thread_list_url(topic_pk=None, topic=None, sort=None, rev=False):
@@ -66,7 +66,7 @@ def thread_list_url(topic_pk=None, topic=None, sort=None, rev=False):
         'topic_slug': topic.slug,
     }
 
-    url = reverse('thread-list', kwargs=kwargs)
+    url = reverse('simple-forums:thread-list', kwargs=kwargs)
 
     args = []
 

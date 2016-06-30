@@ -73,7 +73,7 @@ class Thread(models.Model):
             'thread_slug': self.slug,
         }
 
-        return reverse('thread-detail', kwargs=url_kwargs)
+        return reverse('simple-forums:thread-detail', kwargs=url_kwargs)
 
     def get_search_description(self):
         """ Return description of thread for search results """

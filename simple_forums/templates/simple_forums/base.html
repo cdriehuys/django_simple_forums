@@ -18,12 +18,12 @@
 
         <nav>
             <ul>
-                <li><a href="{% url 'topic-list' %}">Home</a></li>
-                <li><a href="{% url 'search' %}">Search</a></li>
+                <li><a href="{% url 'simple-forums:topic-list' %}">Home</a></li>
+                <li><a href="{% url 'simple-forums:search' %}">Search</a></li>
 
                 {% if request.user.is_authenticated %}
 
-                    <li><a href="{% url 'thread-create' %}">New Thread</a></li>
+                    <li><a href="{% url 'simple-forums:thread-create' %}">New Thread</a></li>
                     <li><a href="{% logout_url %}">Log Out</a></li>
 
                 {% else %}
