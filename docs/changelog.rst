@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.3
+------
+Bug Fixes
+  * Fix `#41`_: Using a namespace when including the app doesn't cause submitting forms to break
+
 v1.3.1
 ------
 Features
@@ -47,4 +52,5 @@ Bug Fixes:
 .. _#28: https://github.com/smalls12/django_simple_forums/issues/28
 .. _#29: https://github.com/smalls12/django_simple_forums/issues/29
 .. _#32: https://github.com/smalls12/django_simple_forums/issues/32
+.. _#41: https://github.com/smalls12/django_simple_forums/issues/41
 .. _#42: https://github.com/smalls12/django_simple_forums/issues/42

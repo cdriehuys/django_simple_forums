@@ -18,7 +18,7 @@ def get_renderer_class():
 
 
 @register.simple_tag(takes_context=True)
-def login_url(context, view_name='login'):
+def login_url(context, view_name='simple-forums:login'):
     """ Construct a login url that redirects to the current page. """
     request = context.get('request')
     return '%s?next=%s' % (
@@ -27,7 +27,7 @@ def login_url(context, view_name='login'):
 
 
 @register.simple_tag(takes_context=True)
-def logout_url(context, view_name='logout'):
+def logout_url(context, view_name='simple-forums:logout'):
     """ Construct a logout url that redirects to the current page. """
     request = context.get('request')
     return '%s?next=%s' % (

@@ -164,7 +164,7 @@ class TestThreadModel(TestCase):
             'thread_pk': thread.pk,
             'thread_slug': thread.slug,
         }
-        url = reverse('thread-detail', kwargs=url_kwargs)
+        url = reverse('simple-forums:thread-detail', kwargs=url_kwargs)
 
         self.assertEqual(url, thread.get_absolute_url())
 

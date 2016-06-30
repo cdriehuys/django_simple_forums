@@ -11,7 +11,7 @@
 
 	<hr />
 
-	<form id="follow-form" action="{% url 'follow-thread' thread.pk %}" method="post">
+	<form id="follow-form" action="{% url 'simple-forums:follow-thread' thread.pk %}" method="post">
 
 		{% csrf_token %}
 

@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse_lazy
 from simple_forums import views
 
 
+app_name = 'simple-forums'
+
 urlpatterns = [
     url(r'^$', views.TopicListView.as_view(), name='topic-list'),
 
@@ -23,7 +25,7 @@ urlpatterns = [
         name='login'),
 
     url(r'^logout/$', auth_views.logout,
-        {'next_page': reverse_lazy('topic-list')},
+        {'next_page': reverse_lazy('simple-forums:topic-list')},
         name='logout'),
 
     url(r'^new/$', views.ThreadCreateView.as_view(), name='thread-create'),

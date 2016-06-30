@@ -48,7 +48,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
 
         success_url = thread_detail_url(thread=thread)
 
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
+        url = reverse('simple-forums:follow-thread', kwargs={'pk': thread.pk})
         response = self.client.post(url, data)
 
         self.assertRedirects(response, success_url)
@@ -71,7 +71,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
 
         success_url = thread_detail_url(thread=thread)
 
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
+        url = reverse('simple-forums:follow-thread', kwargs={'pk': thread.pk})
         response = self.client.post(url, data)
 
         self.assertRedirects(response, success_url)
@@ -87,7 +87,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
 
         thread = create_thread()
 
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
+        url = reverse('simple-forums:follow-thread', kwargs={'pk': thread.pk})
         response = self.client.get(url)
 
         self.assertEqual(405, response.status_code)
@@ -100,7 +100,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
         """
         thread = create_thread()
 
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
+        url = reverse('simple-forums:follow-thread', kwargs={'pk': thread.pk})
         response = self.client.post(url, {})
 
         self.assertEqual(403, response.status_code)
@@ -117,7 +117,7 @@ class TestThreadNotificationView(AuthenticationTestCase):
         data = {'follow': 'on'}
         success_url = thread_detail_url(thread=thread)
 
-        url = reverse('follow-thread', kwargs={'pk': thread.pk})
+        url = reverse('simple-forums:follow-thread', kwargs={'pk': thread.pk})
         response = self.client.post(url, data)
 
         self.assertRedirects(response, success_url)
