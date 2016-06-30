@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.4
+------
+Bug Fixes
+  * Fix issue where fix for `#41`_ didn't work in Django < 1.9
+
 v1.3.3
 ------
 Bug Fixes
