@@ -9,7 +9,7 @@
     {% for topic in topic_list %}
 
         <div class="topic">
-            <h3><a href="{% url 'thread-list' topic.pk topic.slug %}">{{ topic.title }}</a></h3>
+            <h3><a href="{% url 'simple-forums:thread-list' topic.pk topic.slug %}">{{ topic.title }}</a></h3>
             <p>{{ topic.description }}</p>
         </div>
 

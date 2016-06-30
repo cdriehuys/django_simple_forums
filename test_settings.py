@@ -14,7 +14,7 @@ DATABASES = {
 }
 
 
-ROOT_URLCONF = 'simple_forums.urls'
+ROOT_URLCONF = 'test_urls'
 
 
 TEMPLATES = [

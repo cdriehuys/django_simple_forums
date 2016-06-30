@@ -43,7 +43,7 @@ class AuthenticationTestCase(TestCase):
 class TestSearchView(TestCase):
     """ Tests for SearchView """
 
-    URL = reverse('search')
+    URL = reverse('simple-forums:search')
 
     def test_no_query(self):
         """ Test requests with no query.
@@ -77,7 +77,7 @@ class TestSearchView(TestCase):
 class TestThreadCreateView(AuthenticationTestCase):
     """ Tests for ThreadCreateView """
 
-    URL = reverse('thread-create')
+    URL = reverse('simple-forums:thread-create')
 
     def test_empty_post(self):
         """ Test submitting empty form.
@@ -543,7 +543,7 @@ class TestThreadListView(TestCase):
 class TestTopicListView(TestCase):
     """ Tests for TopicListView """
 
-    URL = reverse('topic-list')
+    URL = reverse('simple-forums:topic-list')
 
     def test_no_topics(self):
         """ Test the view when there are no topics.
