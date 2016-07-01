@@ -128,6 +128,14 @@ class Topic(SortableMixin):
         """ Return the topic's title """
         return self.title
 
+    @property
+    def last_thread(self):
+        """ Get the most recently active thread in the topic """
+        if self.thread_set.exists():
+            return self.thread_set.order_by('-time_last_activity').first()
+
+        return None
+
     def save(self, *args, **kwargs):
         """ Save the topic instance
 
