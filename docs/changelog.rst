@@ -1,6 +1,11 @@
 Changelog
 =========
 
+v1.3.5
+------
+Bug Fixes
+  * Fix `#50`_: Adding `get_absolute_url` method to the `Topic` model.
+
 v1.3.4
 ------
 Bug Fixes

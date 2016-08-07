@@ -315,6 +315,20 @@ class TestTopicModel(TestCase):
         self.assertEqual(title, topic.title)
         self.assertEqual(description, topic.description)
 
+    def test_get_absolute_url(self):
+        """Test getting a Topic instance's absolute url.
+
+        It should return the url of the thread list view for the topic.
+        """
+        topic = create_topic()
+
+        expected = reverse('simple-forums:thread-list', kwargs={
+            'topic_pk': topic.pk,
+            'topic_slug': topic.slug,
+        })
+
+        self.assertEqual(expected, topic.get_absolute_url())
+
     def test_slug_generation(self):
         """ Test the automatic generation of a url slug.
 
