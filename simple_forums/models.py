@@ -128,6 +128,19 @@ class Topic(SortableMixin):
         """ Return the topic's title """
         return self.title
 
+    def get_absolute_url(self):
+        """Return the url of the thread list view for the topic.
+
+        Returns:
+            str: The url of the thread list view for the topic.
+        """
+        reverse_kwargs = {
+            'topic_pk': self.pk,
+            'topic_slug': self.slug,
+        }
+
+        return reverse('simple-forums:thread-list', kwargs=reverse_kwargs)
+
     def save(self, *args, **kwargs):
         """ Save the topic instance
 
