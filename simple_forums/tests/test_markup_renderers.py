@@ -43,6 +43,18 @@ class TestMarkdownRenderer(TestCase):
 
         self.assertHTMLEqual(expected_html, result)
 
+    def test_fenced_code(self):
+        """Test creating a fenced code block.
+
+        See issue #51 for details.
+        """
+        text = "```\nexample\n```"""
+        expected_html = "<pre><code>example</code></pre>"
+
+        result = self.renderer.render(text)
+
+        self.assertHTMLEqual(expected_html, result)
+
     def test_safe_string(self):
         """ Test that the output of the render method is marked safe.
 
