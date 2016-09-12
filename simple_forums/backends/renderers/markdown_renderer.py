@@ -35,7 +35,7 @@ class MarkdownRenderer(BaseRenderer):
         'i', 'img',
         'li',
         'ol',
-        'p',
+        'p', 'pre',
         'span', 'strong',
         'tt',
         'ul',
