@@ -37,11 +37,16 @@ class Message(models.Model):
 
     def save(self, *args, **kwargs):
         """ Update the parent thread's 'time_last_activity' field """
+        instance = super(Message, self).save(*args, **kwargs)
+
         if self.time_created > self.thread.time_last_activity:
             self.thread.time_last_activity = self.time_created
             self.thread.save()
 
-        return super(Message, self).save(*args, **kwargs)
+            with open('debug.log', 'w') as f:
+                f.write("Last activity: {}".format(self.thread.time_last_activity))
+
+        return instance
 
 
 class Thread(models.Model):
@@ -52,13 +57,14 @@ class Thread(models.Model):
     sticky = models.BooleanField(default=False)
     slug = models.SlugField()
     time_created = models.DateTimeField(default=timezone.now)
-    time_last_activity = models.DateTimeField(default=timezone.now)
+    time_last_activity = models.DateTimeField(blank=True)
 
     def __init__(self, *args, **kwargs):
         """ Initialize 'time_last_activity' to 'time_created' """
         super(Thread, self).__init__(*args, **kwargs)
 
-        self.time_last_activity = self.time_created
+        if not self.time_last_activity:
+            self.time_last_activity = self.time_created
 
     def __str__(self):
         """ Return the thread's title """
