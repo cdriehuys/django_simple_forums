@@ -71,8 +71,18 @@ class ThreadAdmin(admin.ModelAdmin):
 
 class TopicAdmin(SortableAdmin):
     """ Admin for the topic model """
-
     fields = ('title', 'description',)
+    list_display = ('title', 'show_thread_count')
+    search_fields = ('title',)
+
+    def get_queryset(self, request):
+        """Include the number of threads in each topic."""
+        return models.Topic.objects.annotate(thread_count=Count('thread'))
+
+    def show_thread_count(self, instance):
+        return instance.thread_count
+    show_thread_count.admin_order_field = 'thread_count'
+    show_thread_count.short_description = 'threads'
 
 
 admin.site.register(models.Message, MessageAdmin)
