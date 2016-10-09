@@ -17,7 +17,7 @@ class Message(models.Model):
 
     def __str__(self):
         """ Return the message's body """
-        return self.body
+        return 'Message in {0} (ID {1})'.format(self.thread, self.id)
 
     def get_absolute_url(self):
         """ Return the url of the message instance """
