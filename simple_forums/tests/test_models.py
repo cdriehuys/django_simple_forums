@@ -98,12 +98,14 @@ class TestMessageModel(TestCase):
     def test_string_conversion(self):
         """ Test the conversion of a message instance to a string.
 
-        Converting a message instance to a string should return the
-        message's body text.
+        Converting a message into a string should return the message's
+        id and which thread it's in.
         """
-        message = models.Message(body="Test body text")
+        message = create_message(body="Test body text")
 
-        self.assertEqual(message.body, str(message))
+        expected = 'Message in {0} (ID {1})'.format(message.thread, message.id)
+
+        self.assertEqual(expected, str(message))
 
     def test_update_last_activity_time(self):
         """ Test if saving a message updates its parent thread.
