@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.db.models import Count
 
 from adminsortable.admin import SortableAdmin
 
@@ -41,7 +42,7 @@ class MessageAdmin(admin.ModelAdmin):
 
 class ThreadAdmin(admin.ModelAdmin):
     """ Admin for the Thread model """
-
+    date_hierarchy = 'time_last_activity'
     fieldsets = (
         (None, {
             'fields': ('topic', 'title', 'sticky'),
@@ -52,6 +53,20 @@ class ThreadAdmin(admin.ModelAdmin):
         }),
     )
     inlines = (MessageInline,)
+    list_display = (
+        'title', 'topic', 'show_replies', 'sticky', 'time_last_activity'
+    )
+    list_filter = ('sticky',)
+    search_fields = ('title',)
+
+    def show_replies(self, instance):
+        return instance.replies
+    show_replies.admin_order_field = 'replies'
+    show_replies.short_description = 'replies'
+
+    def get_queryset(self, request):
+        """Return all thread instances"""
+        return models.Thread.objects.annotate(replies=Count('message'))
 
 
 class TopicAdmin(SortableAdmin):
