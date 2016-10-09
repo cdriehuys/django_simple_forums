@@ -25,7 +25,7 @@ class MessageInline(admin.StackedInline):
 
 class MessageAdmin(admin.ModelAdmin):
     """ Admin for the Message model """
-
+    date_hierarchy = 'time_created'
     fieldsets = (
         (None, {
             'fields': ('user', 'thread', 'body'),
@@ -35,6 +35,8 @@ class MessageAdmin(admin.ModelAdmin):
             'fields': ('time_created',),
         }),
     )
+    list_display = ('thread', 'user', 'time_created')
+    search_fields = ('body', 'thread__title', 'user__username')
 
 
 class ThreadAdmin(admin.ModelAdmin):
