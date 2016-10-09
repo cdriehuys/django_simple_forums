@@ -43,9 +43,6 @@ class Message(models.Model):
             self.thread.time_last_activity = self.time_created
             self.thread.save()
 
-            with open('debug.log', 'w') as f:
-                f.write("Last activity: {}".format(self.thread.time_last_activity))
-
         return instance
 
 
