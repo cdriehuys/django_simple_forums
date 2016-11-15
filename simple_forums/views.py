@@ -4,46 +4,8 @@ from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
 from simple_forums import forms, models
-from simple_forums.backends.search import get_search_class
 from simple_forums.mixins import LoginRequiredMixin
 from simple_forums.utils import thread_detail_url
-
-
-class SearchView(generic.View):
-    """ View for searching """
-
-    template_name = 'simple_forums/search.html'
-    query_kwarg = 'q'
-
-    def get(self, request, *args, **kwargs):
-        """ Show the search form and results if applicable """
-        self.args = args
-        self.kwargs = kwargs
-        self.request = request
-
-        return render(request, self.template_name, self.get_context_data())
-
-    def get_context_data(self, **kwargs):
-        context = dict()
-
-        query = self.get_query()
-        if query is not None:
-            context['query'] = query
-            context['results'] = self.get_queryset()
-
-        return context
-
-    def get_query(self):
-        """ Return the query passed as a GET parameter """
-        return self.request.GET.get(self.query_kwarg, None)
-
-    def get_queryset(self):
-        """ Return the list of threads that match the query """
-        backend = get_search_class()()
-
-        results = backend.search(self.get_query())
-
-        return [result for result, _ in results]
 
 
 class ThreadCreateView(LoginRequiredMixin, generic.edit.FormView):

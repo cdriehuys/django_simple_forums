@@ -40,40 +40,6 @@ class AuthenticationTestCase(TestCase):
             password=self.PASSWORD)
 
 
-class TestSearchView(TestCase):
-    """ Tests for SearchView """
-
-    URL = reverse('simple-forums:search')
-
-    def test_no_query(self):
-        """ Test requests with no query.
-
-        If there is no query, then no search results should be
-        displayed.
-        """
-        response = self.client.get(self.URL)
-
-        self.assertEqual(200, response.status_code)
-        self.assertTrue('query' not in response.context)
-
-    def test_query(self):
-        """ Test request with a query.
-
-        If there is a query, the results for that query should be
-        displayed.
-        """
-        thread = create_thread(title='test thread')
-
-        url = '%s?q=%s' % (self.URL, 'test thread')
-        response = self.client.get(url)
-
-        self.assertEqual(200, response.status_code)
-        self.assertEqual('test thread', response.context['query'])
-        self.assertQuerysetEqual(
-            response.context['results'],
-            ['<Thread: %s>' % thread])
-
-
 class TestThreadCreateView(AuthenticationTestCase):
     """ Tests for ThreadCreateView """
 

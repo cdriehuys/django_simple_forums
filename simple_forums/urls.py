@@ -29,8 +29,6 @@ urlpatterns = [
         name='logout'),
 
     url(r'^new/$', views.ThreadCreateView.as_view(), name='thread-create'),
-
-    url(r'^search/$', views.SearchView.as_view(), name='search'),
 ]
 
 if 'simple_forums.notifications' in settings.INSTALLED_APPS:
