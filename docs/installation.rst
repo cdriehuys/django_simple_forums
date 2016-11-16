@@ -20,7 +20,9 @@ In ``settings.py``::
     INSTALLED_APPS = [
         ...
         # default django apps
-        'adminsortable',
+
+        # Add these apps
+        'adminsortable',    # Required for sorting topics in the admin
         'simple_forums',
 
         # If you want email notification functionality, add the following:

@@ -5,18 +5,18 @@ v2.0
 ----
 Backwards Incompatible Changes
   * Close #47: Remove searching. Searching is best implemented by a
-    third party app like `haystack` rather than trying to maintain
+    third party app like ``haystack`` rather than trying to maintain
     additional features within this app.
 
 v1.3.6
 ------
 Bug Fixes
-  * Fix #51: Fixing issue where `<pre>` tags were escaped instead of rendered.
+  * Fix #51: Fixing issue where ``<pre>`` tags were escaped instead of rendered.
 
 v1.3.5
 ------
 Bug Fixes
-  * Fix #50: Adding `get_absolute_url` method to the `Topic` model.
+  * Fix #50: Adding ``get_absolute_url`` method to the ``Topic`` model.
 
 v1.3.4
 ------
@@ -50,7 +50,7 @@ v1.1.1
 ------
 Bug Fixes
   * Fix #21: Specifying markdown output format as html5.
-  * Fix #24: Removing dependency on bleach-whitelist package.
+  * Fix #24: Removing dependency on ``bleach-whitelist`` package.
 General
   * Close #25: Adding documentation for templates and searching.
 
