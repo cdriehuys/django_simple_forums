@@ -7,6 +7,7 @@ pymdown-extensions
 sphinx
 sphinx-autobuild
 sphinx-rtd-theme
+sphinxcontrib-issuetracker
 
 # Version Constrained Packages
 django >=1.8,<1.10
