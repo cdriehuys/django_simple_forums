@@ -1,6 +1,13 @@
 Changelog
 =========
 
+v2.0
+----
+Backwards Incompatible Changes
+  * Close `#47`_: Remove searching. Searching is best implemented by a
+    third party app like `haystack` rather than trying to maintain
+    additional features within this app.
+
 v1.3.6
 ------
 Bug Fixes
@@ -69,5 +76,6 @@ Bug Fixes:
 .. _#32: https://github.com/cdriehuys/django_simple_forums/issues/32
 .. _#41: https://github.com/cdriehuys/django_simple_forums/issues/41
 .. _#42: https://github.com/cdriehuys/django_simple_forums/issues/42
+.. _#47: https://github.com/cdriehuys/django_simple_forums/issues/47
 .. _#50: https://github.com/cdriehuys/django_simple_forums/issues/50
 .. _#51: https://github.com/cdriehuys/django_simple_forums/issues/51

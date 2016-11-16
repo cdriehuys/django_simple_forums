@@ -20,6 +20,3 @@ markup_renderer (='simple_forums.backends.renderers.TextRenderer')
   Choices:
     * ``'simple_forums.backends.renderers.MarkdownRenderer'``
     * ``'simple_forums.backends.renderers.TextRenderer'``
-
-search_backend
-  A dictionary containing the settings for the search engine to use. See the :doc:`searching` section for more details.

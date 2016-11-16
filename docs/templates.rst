@@ -13,15 +13,8 @@ login.html
   Context:
     - ``form``: The login form itself.
     - ``next``: The url to redirect to after a successful login. Example usage::
-        
+
         <input type="hidden" name="next" value="{{ next }}" />
-
-search.html
-  Used for the search view. It contains a search form and an area for displaying search results.
-
-  Context:
-    - ``query``: The query string being searched for. This is only set if the query string is not blank.
-    - ``results``: Contains all of the objects that matched the query. These objects may be instances of the ``Thread`` or ``Message`` models.
 
 thread_create.html
   Used in the view for creating new threads.

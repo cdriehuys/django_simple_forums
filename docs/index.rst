@@ -13,7 +13,6 @@ Contents
    installation
    configuration
    templates
-   searching
    notifications
 
 
