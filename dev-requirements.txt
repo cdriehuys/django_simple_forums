@@ -4,6 +4,8 @@ bumpversion
 flake8
 markdown
 pymdown-extensions
+pytest
+pytest-django
 sphinx
 sphinx-autobuild
 sphinx-rtd-theme
