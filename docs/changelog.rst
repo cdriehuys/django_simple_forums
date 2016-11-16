@@ -7,6 +7,9 @@ Backwards Incompatible Changes
   * Close #47: Remove searching. Searching is best implemented by a
     third party app like ``haystack`` rather than trying to maintain
     additional features within this app.
+Bug Fixes
+  * Fix #56: Fix invalid option in the example configuration
+    dictionary.
 
 v1.3.6
 ------

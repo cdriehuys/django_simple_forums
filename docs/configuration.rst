@@ -5,7 +5,7 @@ Configuration
 All configuration options for simple forums should be placed in a dictionary called ``SIMPLE_FORUMS`` in ``settings.py``. Example::
 
     SIMPLE_FORUMS = {
-        'markup_renderer': 'simple_forums.markup_renderers.MarkdownRenderer',
+        'markup_renderer': 'simple_forums.backends.renderers.MarkdownRenderer',
     }
 
 Available Settings
