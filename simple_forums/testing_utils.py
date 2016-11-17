@@ -24,7 +24,7 @@ class ThreadFactory(factory.django.DjangoModelFactory):
     sticky = False
     time_created = factory.LazyFunction(timezone.now)
     title = factory.Sequence(lambda n: "Thread {n}".format(n=n))
-    topic = factory.SubFactory('simple_forums.testing_utils.ThreadFactory')
+    topic = factory.SubFactory('simple_forums.testing_utils.TopicFactory')
 
     class Meta:
         model = 'simple_forums.Thread'
@@ -62,3 +62,19 @@ class UserFactory(factory.django.DjangoModelFactory):
         manager = cls._get_manager(model_class)
 
         return manager.create_user(*args, **kwargs)
+
+
+def create_message(*args, **kwargs):
+    return MessageFactory(*args, **kwargs)
+
+
+def create_thread(*args, **kwargs):
+    return ThreadFactory(*args, **kwargs)
+
+
+def create_topic(*args, **kwargs):
+    return TopicFactory(*args, **kwargs)
+
+
+def get_test_user(*args, **kwargs):
+    return UserFactory(*args, **kwargs)
