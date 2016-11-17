@@ -70,19 +70,10 @@ class Thread(models.Model):
 
         return reverse('simple-forums:thread-detail', kwargs=url_kwargs)
 
-    def get_title(self):
-        """ Return the thread's title """
-        return self.title
-
     @property
     def num_replies(self):
         """ Get the number of replies to the thread """
-        count = self.message_set.count()
-
-        if not count:
-            return count
-
-        return count - 1
+        return max(0, self.message_set.count() - 1)
 
     def save(self, *args, **kwargs):
         """ Save the thread instance

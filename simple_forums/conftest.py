@@ -1,7 +1,7 @@
 import pytest
 
 from simple_forums.testing_utils import (
-    MessageFactory, ThreadFactory, UserFactory)
+    MessageFactory, ThreadFactory, TopicFactory, UserFactory)
 
 
 @pytest.fixture(scope='function')
@@ -28,6 +28,19 @@ def thread_factory(db):
         ``simple_forums.testing_utils.ThreadFactory``
     """
     return ThreadFactory
+
+
+@pytest.fixture(scope='function')
+def topic_factory(db):
+    """
+    Return the ``TopicFactory`` class.
+
+    Alse ensures the django db is set up.
+
+    Returns:
+        ``simple_forums.testing_utils.TopicFactory``
+    """
+    return TopicFactory
 
 
 @pytest.fixture(scope='function')
