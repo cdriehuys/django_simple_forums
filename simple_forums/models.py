@@ -27,10 +27,6 @@ class Message(models.Model):
         """ Get the anchor for the message """
         return 'm-%d' % self.pk
 
-    def get_title(self):
-        """ Return the parent thread's title """
-        return self.thread.get_title()
-
     def save(self, *args, **kwargs):
         """ Update the parent thread's 'time_last_activity' field """
         instance = super(Message, self).save(*args, **kwargs)
