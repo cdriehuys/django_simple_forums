@@ -1,6 +1,7 @@
 # Unconstrained Packages
 bleach
 bumpversion
+factory_boy
 flake8
 markdown
 pymdown-extensions
