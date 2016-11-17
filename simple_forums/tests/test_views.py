@@ -1,5 +1,5 @@
-from datetime import timedelta
 import sys
+from datetime import timedelta
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -8,7 +8,7 @@ from django.test import TestCase
 from django.utils import timezone
 
 from simple_forums import models
-from simple_forums.tests.testing_utils import (
+from simple_forums.testing_utils import (
     create_message,
     create_thread,
     create_topic,)

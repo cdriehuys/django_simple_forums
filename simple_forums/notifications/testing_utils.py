@@ -1,6 +1,6 @@
 from simple_forums.notifications import models
 
-from simple_forums.tests.testing_utils import create_thread, get_test_user
+from simple_forums.testing_utils import create_thread, get_test_user
 
 
 def create_thread_notification(**kwargs):

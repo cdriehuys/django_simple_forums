@@ -2,7 +2,7 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from simple_forums import forms, models
-from simple_forums.tests.testing_utils import create_thread, create_topic
+from simple_forums.testing_utils import create_thread, create_topic
 
 
 class TestThreadCreationForm(TestCase):

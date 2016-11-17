@@ -5,7 +5,7 @@ from django.test import TestCase
 from simple_forums.notifications import models
 from simple_forums.notifications.testing_utils import (
     create_thread_notification)
-from simple_forums.tests.testing_utils import create_thread
+from simple_forums.testing_utils import create_thread
 from simple_forums.utils import thread_detail_url
 
 

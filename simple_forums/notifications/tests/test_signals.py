@@ -3,7 +3,7 @@ from django.test import TestCase
 
 from simple_forums.notifications.testing_utils import (
     create_thread_notification)
-from simple_forums.tests.testing_utils import (
+from simple_forums.testing_utils import (
     create_message, create_thread, get_test_user)
 
 
