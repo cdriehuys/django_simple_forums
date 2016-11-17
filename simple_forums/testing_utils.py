@@ -9,9 +9,9 @@ class MessageFactory(factory.django.DjangoModelFactory):
     Factory for creating messages.
     """
     body = 'Test message body.'
-    thread = factory.SubFactory(ThreadFactory)
+    thread = factory.SubFactory('simple_forums.testing_utils.ThreadFactory')
     time_created = factory.LazyFunction(timezone.now)
-    user = factory.SubFactory(UserFactory)
+    user = factory.SubFactory('simple_forums.testing_utils.UserFactory')
 
     class Meta:
         model = 'simple_forums.Message'
@@ -24,7 +24,7 @@ class ThreadFactory(factory.django.DjangoModelFactory):
     sticky = False
     time_created = factory.LazyFunction(timezone.now)
     title = factory.Sequence(lambda n: "Thread {n}".format(n=n))
-    topic = factory.SubFactory(TopicFactory)
+    topic = factory.SubFactory('simple_forums.testing_utils.ThreadFactory')
 
     class Meta:
         model = 'simple_forums.Thread'
