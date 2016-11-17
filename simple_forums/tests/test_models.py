@@ -1,6 +1,5 @@
 from datetime import timedelta
 
-from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 from django.utils import timezone
@@ -10,102 +9,6 @@ from simple_forums.testing_utils import (
     create_message,
     create_thread,
     create_topic)
-
-
-class TestMessageModel(TestCase):
-    """ Tests for the message model """
-
-    def test_create_with_all_fields(self):
-        """ Test creation of a message with all its fields.
-
-        A message instance should be able to be created with a foreign
-        key to a user instance, body text, and a time for its creation.
-        """
-        user = get_user_model().objects.create_user(
-            username='test',
-            password='test')
-        thread = create_thread()
-        body = "Test body text"
-        time = timezone.now()
-
-        message = models.Message.objects.create(
-            user=user,
-            thread=thread,
-            body=body,
-            time_created=time)
-
-        self.assertEqual(user, message.user)
-        self.assertEqual(thread, message.thread)
-        self.assertEqual(body, message.body)
-        self.assertEqual(time, message.time_created)
-
-    def test_default_time_created(self):
-        """ Test the default for the 'time_created' field.
-
-        The field should default to the current time.
-        """
-        start_time = timezone.now()
-        message = create_message()
-        end_time = timezone.now()
-
-        self.assertTrue(start_time <= message.time_created <= end_time)
-
-    def test_get_absolute_url(self):
-        """ Test getting the message's url.
-
-        The url should be the url of the message's parent thread with
-        a named anchor of the message's pk.
-        """
-        message = create_message()
-
-        expected = '%s#%s' % (message.thread.get_absolute_url(),
-                              message.get_anchor())
-
-        self.assertEqual(expected, message.get_absolute_url())
-
-    def test_get_anchor(self):
-        """ Test getting the anchor for the message.
-
-        The anchor should be in the format 'm-<pk>'.
-        """
-        message = create_message()
-
-        expected = 'm-%d' % message.pk
-
-        self.assertEqual(expected, message.get_anchor())
-
-    def test_get_title(self):
-        """ Test getting the message's title.
-
-        The message's title should be its parent thread's title.
-        """
-        message = create_message()
-
-        self.assertEqual(message.thread.get_title(), message.get_title())
-
-    def test_string_conversion(self):
-        """ Test the conversion of a message instance to a string.
-
-        Converting a message into a string should return the message's
-        id and which thread it's in.
-        """
-        message = create_message(body="Test body text")
-
-        expected = 'Message in {0} (ID {1})'.format(message.thread, message.id)
-
-        self.assertEqual(expected, str(message))
-
-    def test_update_last_activity_time(self):
-        """ Test if saving a message updates its parent thread.
-
-        Saving a message should update the 'time_last_activity' field
-        on its parent thread instance.
-        """
-        past = timezone.now() - timedelta(days=1)
-        thread = create_thread(time_created=past)
-        message = create_message(thread=thread)
-
-        self.assertEqual(message.time_created, thread.time_last_activity)
 
 
 class TestThreadModel(TestCase):

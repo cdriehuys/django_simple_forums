@@ -23,6 +23,7 @@ class ThreadFactory(factory.django.DjangoModelFactory):
     """
     sticky = False
     time_created = factory.LazyFunction(timezone.now)
+    time_last_activity = factory.LazyAttribute(lambda obj: obj.time_created)
     title = factory.Sequence(lambda n: "Thread {n}".format(n=n))
     topic = factory.SubFactory('simple_forums.testing_utils.TopicFactory')
 
