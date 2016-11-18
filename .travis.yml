@@ -23,7 +23,7 @@ before_install:
 install:
   - pip install "$DJANGO"
   - pip install bleach codecov django-admin-sortable factory_boy
-  - pip install markdown pymdown-extensions pytest>=2.9 pytest-django
+  - pip install markdown pymdown-extensions "pytest >= 2.9" pytest-django
 
 # run tests
 script: coverage run --source='.' -m pytest
