@@ -5,7 +5,7 @@ from simple_forums.testing_utils import (
 
 
 @pytest.fixture(scope='function')
-def msg_factory(db):
+def message_factory(db):
     """
     Return the ``MessageFactory`` class.
 

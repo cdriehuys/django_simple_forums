@@ -52,7 +52,7 @@ def test_get_absolute_url(thread_factory):
     assert thread.get_absolute_url() == expected
 
 
-def test_num_replies_initial_message(msg_factory, thread_factory):
+def test_num_replies_initial_message(message_factory, thread_factory):
     """
     Test ``num_replies`` with the initial message.
 
@@ -60,12 +60,12 @@ def test_num_replies_initial_message(msg_factory, thread_factory):
     """
     thread = thread_factory()
     # Create initial message
-    msg_factory(thread=thread)
+    message_factory(thread=thread)
 
     assert thread.num_replies == 0
 
 
-def test_num_replies_multiple_messages(msg_factory, thread_factory):
+def test_num_replies_multiple_messages(message_factory, thread_factory):
     """
     Test ``num_replies`` with multiple replies.
 
@@ -74,10 +74,10 @@ def test_num_replies_multiple_messages(msg_factory, thread_factory):
     """
     thread = thread_factory()
     # Initial message
-    msg_factory(thread=thread)
+    message_factory(thread=thread)
     # Additional messages should apply toward the count
-    msg_factory(thread=thread)
-    msg_factory(thread=thread)
+    message_factory(thread=thread)
+    message_factory(thread=thread)
 
     expected = thread.message_set.count() - 1
 

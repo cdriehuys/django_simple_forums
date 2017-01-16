@@ -24,14 +24,14 @@ def test_create(thread_factory, usr_factory):
         user=user)
 
 
-def test_get_absolute_url(msg_factory):
+def test_get_absolute_url(message_factory):
     """
     Test getting the url of a message.
 
     The url should include both the url of the message's thread as well
     as the message's anchor.
     """
-    message = msg_factory()
+    message = message_factory()
     expected = '{url}#{anchor}'.format(
         anchor=message.get_anchor(),
         url=message.thread.get_absolute_url())
@@ -39,26 +39,26 @@ def test_get_absolute_url(msg_factory):
     assert message.get_absolute_url() == expected
 
 
-def test_get_anchor(msg_factory):
+def test_get_anchor(message_factory):
     """
     Test getting the anchor tag of a message.
 
     The anchor should include a prefix and the message's id.
     """
-    message = msg_factory()
+    message = message_factory()
     expected = 'm-{id}'.format(id=message.id)
 
     assert message.get_anchor() == expected
 
 
-def test_string_conversion(msg_factory):
+def test_string_conversion(message_factory):
     """
     Test converting a message to a string.
 
     Converting a message to a string should return a string that says
     which thread the message is in, as well as the ID of the message.
     """
-    message = msg_factory()
+    message = message_factory()
     expected = 'Message in {thread} (ID {id})'.format(
         id=message.id,
         thread=message.thread)
@@ -66,7 +66,7 @@ def test_string_conversion(msg_factory):
     assert str(message) == expected
 
 
-def test_update_thread_activity_time(msg_factory, thread_factory):
+def test_update_thread_activity_time(message_factory, thread_factory):
     """
     Test updating a message's thread's activity time.
 
@@ -76,6 +76,6 @@ def test_update_thread_activity_time(msg_factory, thread_factory):
     now = timezone.now()
     past = now - timedelta(days=1)
     thread = thread_factory(time_last_activity=past)
-    message = msg_factory(thread=thread, time_created=now)
+    message = message_factory(thread=thread, time_created=now)
 
     assert message.thread.time_last_activity == message.time_created

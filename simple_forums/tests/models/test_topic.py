@@ -34,7 +34,7 @@ def test_get_absolute_url(topic_factory):
     assert topic.get_absolute_url() == expected
 
 
-def test_last_thread(msg_factory, thread_factory, topic_factory):
+def test_last_thread(message_factory, thread_factory, topic_factory):
     """
     Test the ``last_thread`` property with multiple threads.
 
@@ -47,7 +47,7 @@ def test_last_thread(msg_factory, thread_factory, topic_factory):
     far_past = past - timedelta(days=1)
 
     thread = thread_factory(time_created=past, topic=topic)
-    msg_factory(thread=thread)
+    message_factory(thread=thread)
 
     thread_factory(time_created=far_past, topic=topic)
 
