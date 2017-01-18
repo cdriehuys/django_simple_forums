@@ -5,7 +5,9 @@ from simple_forums import models
 
 class ThreadCreationForm(forms.Form):
     """ Form for creating new threads """
-    topic = forms.ModelChoiceField(queryset=models.Topic.objects.all())
+    topic = forms.ModelChoiceField(
+        empty_label='Select a Topic',
+        queryset=models.Topic.objects.all())
     title = forms.CharField(max_length=200)
     body = forms.CharField(label='Post Body', widget=forms.Textarea)
 
