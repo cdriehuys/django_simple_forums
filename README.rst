@@ -20,6 +20,12 @@ Simple Forums
 .. image:: https://landscape.io/github/smalls12/django_simple_forums/master/landscape.svg?style=flat
    :target: https://landscape.io/github/smalls12/django_simple_forums/master
    :alt: Code Health
+   
+----
+
+**This project has been archived and is no longer maintained.**
+
+----
 
 Goals
 =====
